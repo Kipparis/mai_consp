@@ -1,0 +1,164 @@
+\documentclass{article}[12pt]
+
+\input{preambule/main.tex}
+
+
+\begin{document}
+\section{Классификация}
+\begin{definition}
+    {Уравнение с частными производными 2-го порядка с двумя независимыми
+    переменными $x$, $y$}
+    {Уравнение с частными производными 2-го порядка с двумя независимыми
+    переменными $x$, $y$}
+    соотношение между неизвестной функцией $u(x,y)$ и её частными
+    производными до 2-го порядка включительно:
+    \begin{displaymath}
+        F(x,y,u,u_{x},u_{y},u_{xx},u_{xy},u_{yy})=0
+    \end{displaymath}
+\end{definition}
+\begin{definition}
+    {Линейное уравнение относительно старших производных}
+    {Линейное уравнение относительно старших производных}
+    уравнение, имеющее вид
+    \begin{displaymath}
+        a_{11}u_{xx}+2a_{12}u_{xy}+a_{22}u_{yy}
+        +F(x,y,u,u_{x},u_{y})=0
+    \end{displaymath}
+    где $a_{11}$, $a_{12}$, $a_{22}$ - функции от $x$, $y$.
+\end{definition}
+\begin{definition}
+    {Квазилинейное уравнение}
+    {Квазилинейное уравнение}
+    уравнение, имеющее вид
+    \begin{displaymath}
+        a_{11}u_{xx}+2a_{12}u_{xy}+a_{22}u_{yy}
+        +F(x,y,u,u_{x},u_{y})=0
+    \end{displaymath}
+    где $a_{11}$, $a_{12}$, $a_{22}$ - функции от $x$, $y$, $u$,
+    $u_{x}$, $u_{y}$.
+\end{definition}
+\begin{definition}
+    {Линейное уравнение}
+    {Линейное уравнение}
+    уравнение, линейное как относительно старших производных $u_{xx}$,
+    $u_{xy}$, $u_{yy}$, так и относительно функции $u$ и ее первых
+    производных $u_{x}$, $u_{y}$:
+    \begin{displaymath}
+        a_{11}u_{xx}+2a_{12}u_{xy}+a_{22}u_{yy}
+        +b_{1}u_{x}+b_{2}u_{y}+cu+f=0
+    \end{displaymath}
+    где $a_{11}$, $a_{12}$, $a_{22}$, $b_{1}$, $b_{2}$, $c$, $f$ -
+    функции только $x$ и $y$.
+    \par Если коэффициекнты не зависят от $x$ и
+    $y$, то оно представляет собой \textit{линейное уравнение с
+    постоянными коэффициентами}\index{Линейное уравнение с постоянными
+    коэффициентами}.
+    \par Если $f(x,y)=0$, то уравнение
+    \textit{однородное}\index{Однородное уравнение}
+\end{definition}
+\section{В частных производных второго порядка}
+Уравнение \textbf{\textit{линейное относительно старших производных}} можно привести к
+канноническому виду с помощью замены переменных на
+$\xi$ и $\eta$ ($\xi=\varphi(x,y)$, $\eta=\psi(x,y)$)
+\par Изначальное уравнение имеет вид
+\begin{displaymath}
+    a_{11}u_{xx}+2a_{12}u_{xy}+a_{22}u_{yy}+F(x,y,u,u_{x},u_{y})=0
+\end{displaymath}
+\par Составляем \textit{характеристическую функцию}:
+\begin{displaymath}
+    a_{11}(dy)^{2}-2a_{12}dxdy+a_{22}(dx)^{2}=0
+\end{displaymath}
+\par Находим области гиперболичности, параболичности, элиптичности
+функции.
+\begin{displaymath}
+    D=a_{12}^{2}-a_{11}a_{22}\left\{
+        \begin{array}{ll}
+            > 0,&\textmd{гиперболичноский тип}\\
+            = 0,&\textmd{параболичноский тип}\\
+            < 0,&\textmd{элиптичноский тип}
+        \end{array}
+    \right.
+\end{displaymath}
+\par Для каждой области интегрируем характеристическую функцию. Общие
+интегралы (решение кроме постоянной $C$) и представляют функцию для замены.
+\begin{displaymath}
+    \xi=\varphi(x,y),\ \ \ \eta=\psi(x,y)
+\end{displaymath}
+\textit{например, если в решении получилось} $y=\pm x + C$ \textit{тогда}
+$\xi=y+x,\ \eta=y-x$
+\parвозможно к более хорошему виду приведет замена
+\begin{displaymath}
+    \alpha=\frac{\xi-\eta}{2},
+    \ \ \beta=\frac{\xi+\eta}{2}\textmd{ или }\frac{\xi+\eta}{2i}
+\end{displaymath}
+можно модифицировать преобразования для более хорошего результата,
+главное - выполнение условия:
+\begin{displaymath}
+    % \arraycolsep=1.4pt\def\arraystretch{2.2}
+    \left|\begin{array}{cc}
+        \varphi_{x} & \psi_{x} \\
+        \varphi_{y} & \psi_{y}
+    \end{array}\right| \neq 0
+\end{displaymath}
+\par После нахождения замены переменных, вычисляем частные производные
+до второго порядка
+\begin{eqnarray*}
+    u_{x}=u_{\xi}\xi_{x}+u_{\eta}\eta_{x}\\
+    u_{y}=u_{\xi}\xi_{y}+u_{\eta}\eta_{y}\\
+    \ldots
+\end{eqnarray*}
+\par \textit{Коэффициенты} $\xi_{x},\xi_{y}$ \textit{- то, что мы
+считаем и подставляем. Коэффициенты} $u_{\xi},u_{\eta}$ \textit{- то,
+что мы не трогаем}
+\par Подставляем частные производные в исходное уравнение и должен
+получится что-то из каннонических форм:
+\begin{center}
+\begin{tabular}{ |l|c| }
+    Тип & Каннонический вид \\
+    \hline
+    Гиперболический & $u_{\xi\eta}=\Phi(\xi,\eta,u,u_{\xi},u_{\eta})$ \\
+                    & $u_{\alpha\alpha}-u_{\beta\beta}=\Phi$\\
+    \hline
+    Параболический & $u_{\eta\eta}=\Phi(\xi,\eta,u,u_{\xi},u_{\eta})$\\
+                   & $u_{\xi\xi}=\Phi(\xi,\eta,u,u_{\xi},u_{\eta})$\\
+    \hline
+    Эллиптический & $u_{\alpha\alpha}+u_{\beta\beta}
+                        =\Phi(\xi,\eta,u,u_{\xi},u_{\eta})$ \\
+    \hline
+\end{tabular}
+\end{center}
+
+Если каноническая форма не выходит, значит при решении допущена
+ошибка.
+
+\section{Линейные с постоянными коэффициентами}
+Решаем обычное уравнение. В приведенном уравнении раскрываем все скобки и
+переносим всё по одну сторону от равно.
+\par Затем производим замену
+\begin{eqnarray*}
+    &&u(\xi,\eta)=V(\xi,\eta)e^{\lambda\xi+\mu\eta}
+    \\&&u_{\xi}=(\lambda V+V_{\xi})e^{\lambda\xi+\mu\eta}
+    \\&&u_{\eta}=(\mu V+V_{\eta})e^{\lambda\xi+\mu\eta}
+    \\&&u_{\xi\xi}=(\lambda^{2}V+2\lambda
+    V_{\xi}+V_{\xi\xi})e^{\lambda\xi+\mu\eta}
+    \\&&u_{\xi\eta}=(\lambda\mu V+\mu V_{\xi}+\lambda
+    V_{\eta}+V_{\xi\eta})e^{\lambda\xi+\mu\eta}
+    \\&&u_{\eta\eta}=(\mu^{2}V+2\mu
+    V_{\eta}+V_{\eta\eta})e^{\lambda\xi+\mu\eta}
+\end{eqnarray*}
+выносим экспоненту за скобку и группируем все относительно относительно
+$V$ и его частных производных.
+\par У нас образуются скобочки в которые входят коэффициенты
+$\mu,\lambda$, которые мы приравниваем к нулю. Отсюда и находим
+коэффициенты $\mu,\lambda$.
+\par Получаем решение системы. Например:
+\begin{displaymath}
+    \left\{\begin{array}{ll}
+            V_{\eta\eta}-\frac{1}{9}V_{\xi}=0
+            \\u=V(\xi,\eta)e^{-\frac{1}{9}\xi -\frac{1}{9}\eta},
+            & \xi=-\frac{1}{9},\ \eta=-\frac{1}{9}
+    \end{array}\right.
+\end{displaymath}
+
+
+\end{document}
