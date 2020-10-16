@@ -1,0 +1,127 @@
+\documentclass{article}[12pt]
+
+\input{preambule/main.tex}
+
+
+\begin{document}
+
+\section{Вычисление меры}
+При вычислении меры мн-ва $A$ пользуемся неравенством:
+\begin{displaymath}
+    0 \leqslant \mu(A) \leqslant \sum\limits_{n=1}^{\infty}A_{n}
+\end{displaymath}
+где $A_{n}$ - элемент покрытия множества. Таким образом, чтобы решить
+задачу, мы придумываем покрытие нашего множества, которое должно либо
+сходится к числу (как например мера прямоугольнка в плоскости - его
+площадь), либо сходится к нулю, как мера прямой в плоскости, либо
+сходится к бесконечности (в задачах обычно означает что неправильно
+построил покрытие)
+\par \textit{Пример.} Рассмотрим меру бесконечной биссектрисы на
+плоскости. Введем следующее покрытие: до единицы покрываем биссектрису
+квадратами со стороной $\frac{1}{n}$, до двойки покрываем биссектрису
+квадратами $\frac{1}{n^{2}}$. Таким образом, мера биссектрисы будет
+ограниченна
+\begin{displaymath}
+    0 \leqslant \mu(A) \leqslant
+    \lim\limits_{n\rightarrow \infty}\sum\limits_{i=1}^{\infty}\frac{1}{n^{i}}
+\end{displaymath}
+(в пределе мы уменьшаем размер квадратов) выражение под пределом представляет
+собой бесконечно убывающую геометрическую прогрессию
+\begin{displaymath}
+    0 \leqslant \mu(A) \leqslant \lim\limits_{n\rightarrow
+    \infty}\frac{1}{n-1}
+\end{displaymath}
+отсюда следует что
+\begin{displaymath}
+    \mu(A)=0
+\end{displaymath}
+
+\section{Вычисление интегралов}
+\subsection{Интеграл Лебега}
+Если функция $f$ простая - разбиваем пространство на подпространства,
+где подынтегральная функция принимает фиксированное значение.
+
+\par \textit{Формальное определение}
+\begin{displaymath}
+    \int\limits_{A}f(x)d\mu=\sum\limits_{i=1}^{\infty}y_{i}\mu(A_{i})
+\end{displaymath}
+где $y_{i}$ - значение функции на выбранном интервале, $\mu(A_{i})$ -
+мера выбранного интервала.
+
+\par \textit{Пример.}
+\begin{displaymath}
+    \int\limits_{[-2;+\infty)}2^{-[x]}dx
+    =\mu{[-2;-1)}\cdot2^{2} + \mu{[-1;0)}\cdot2^{1}
+    + \sum\limits_{n=0}^{\infty}\mu{[n;n+1)}\cdot 2^{-n}
+    =4 + 2 + \sum\limits_{n=0}^{\infty}\frac{1}{2^{n}}
+    =7 + \sum\limits_{n=1}^{\infty}\frac{1}{2^{n}}
+\end{displaymath}
+Вычисляем сумму бесконечно убывающей геометрической прогрессии
+\begin{displaymath}
+    \int\limits_{[-2;+\infty)}2^{-[x]}dx
+    = 7 + \frac{\frac{1}{2}}{1-\frac{1}{2}}=8
+\end{displaymath}
+
+\par При решении задач с \textit{Канторовой лестницей} полезно знать,
+что:
+\begin{itemize}
+    \item $A_{nk}=\left(\frac{3^{k}-2}{3^{n}};\frac{3^{k}-1}{3^{n}}\right)$
+    \item $x_{0}\in A_{nk} \Rightarrow C(x_{0})=\frac{2k-1}{2^{n}}$
+    \item $\mu(A_{nk})=\frac{1}{3^{n}}$
+    \item $n=1..\infty,\ k=1..2^{n-1}$
+\end{itemize}
+
+\subsection{Интеграл Лебега-Стилтьеса}
+Мера вычисляется по следующим правилам:
+\begin{itemize}
+    \item Для отрезка: $\mu_{F}[a,b)=F(b)-F(a)$
+    \item Для точки: $\mu(\{c\})=F(c+0)-F(c)$
+        \subitem Если в т. $c$ нет разрыва, то $\mu(\{c\})=0$
+\end{itemize}
+\par Интеграл формально
+\begin{displaymath}
+    \int\limits_{A}x(t)d\mu_{F}=\int\limits_{A}x(t)dF(t)
+\end{displaymath}
+
+\par \textit{Функция Хилсайда} $\chi(t)$
+\begin{displaymath}
+    \chi(t)=\left\{\begin{array}{ll}
+    0, & t \leqslant 0 \\
+    1, & t > 0
+    \end{array}\right.
+\end{displaymath}
+
+\par \textit{Пример.} Вычислить
+$\int\limits_{R}x(t)d_{\chi(t-a)}=\int\limits_{R}x(t)d\chi(t-a)$
+\par Решение:
+\begin{eqnarray*}
+&&\int\limits_{R}x(t)d\chi(t-a)\stackrel{\text{разбиваем в точке разрыва на области}}{=}
+\\&&=\int\limits_{(-\infty;a)}x(t)d\chi(t-a)+\int\limits_{\{a\}}x(t)d\chi(t-a)
++\int\limits_{(a;+\infty)}x(t)d\chi(t-a)
+\end{eqnarray*}
+Первое слагаемое:
+\begin{displaymath}
+    \mu_{\chi}(-\infty,a)=\chi(a-a)-\chi(-\infty)=\chi(0)-\chi(-\infty)=0
+\end{displaymath}
+Третье слагаемое:
+\begin{displaymath}
+    \mu_{\chi}(a,+\infty)=\chi(\infty)-\chi(a-a+0)=\chi(\infty)-\chi(0+0)=1-1=0
+\end{displaymath}
+Остается:
+\begin{eqnarray*}
+    &&\int\limits_{R}x(t)d_{\chi(t-a)}=\int\limits_{\{a\}}x(t)d\chi(t-a)=x(a)\mu_{\chi}(\{a\})
+    =\\&&=x(a)\left(\chi(a-a+0)-\chi(a-a)\right)=x(a)(1-0)=x(a)
+\end{eqnarray*}
+
+
+
+
+
+\par Общие советы:
+\begin{enumerate}
+    \item Разбей на области, с границами в точках разрыва дифференциала
+    \item Ищи области в которых выражение под дифференциалом не
+        изменяется - эти области можно приравнять нулю
+\end{enumerate}
+
+\end{document}
