@@ -1,0 +1,69 @@
+\documentclass[12pt]{article}
+
+\usepackage[utf8x]{inputenc}
+\usepackage[T1, T2A]{fontenc}
+\usepackage{fullpage}
+\usepackage{multicol,multirow}
+\usepackage{tabularx}
+\usepackage{amssymb}
+\usepackage{ulem}
+\usepackage{listings}
+\usepackage{tabularx}
+\usepackage[english,russian]{babel}
+\usepackage{tikz}
+\usepackage{graphicx}
+\graphicspath{ {./pic/} }
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{listings}
+\lstset{
+    language=c++,
+    extendedchars=true,
+    basicstyle=\footnotesize,
+    % inputencoding=utf8
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+
+ % Цвета для гиперссылок
+\definecolor{linkcolor}{HTML}{e04c41}   % цвет ссылок
+\definecolor{urlcolor}{HTML}{e04c41}    % цвет гиперссылок
+
+% FitH - итоговый документ был по ширине расположен на экране
+% colorlinks=true - ссылку будут отображаться цветом, а не рамкой вокруг них
+% linkcolor и urlcolor - цвет ссылок и гиперссылок
+\hypersetup{pdfstartview=FitH,linkcolor=linkcolor,urlcolor=urlcolor, colorlinks=true}
+
+\parindent=1cm
+\makeatletter
+% \newcommand{\rindex}[2][\imki@jobname]{%
+%     \index[#1]{\detokenize{#2}}%
+% }
+\makeatother
+\newcolumntype{P}[1]{>{\raggedbottom\arraybackslash}p{#1}}
+
+\hfuzz=10000pt
+\vbadness10000
+\linespread{1}
+
+\begin{document}
+
+\tableofcontents\newpage
+
+\section{Сортировка}
+
+\begin{table}[h]
+\begin{tabularx}{\textwidth}{|l|X|}
+    Сортировка & Время работы \\\hline
+    Подсчетом & Число приналежит интервалу $[0;k]$, если $k=O(n)$, то
+    время работы - $\theta(n)$ \\
+    Поразрядная & 
+\end{tabularx}
+\end{table}
+
+\end{document}
+
