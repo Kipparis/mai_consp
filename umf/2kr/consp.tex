@@ -1,0 +1,453 @@
+\documentclass{article}[12pt]
+
+\setlength{\parindent}{0em} % space before par
+\setlength{\parskip}{1em}   % spacing between pars
+
+\usepackage{enumitem} % configure lists
+
+\raggedbottom
+
+\input{preambule/main.tex}
+
+\begin{document}
+\tableofcontents
+\newpage
+\printindex
+\newpage
+
+\section{Постановка задачи}
+\subsection{Вид уравнений теплопроводности}
+\paragraph{Теплоизолированная боковая поверхность}
+\textit{Если ничего не сказанно, считаем что поверхность
+теплоизолированна}
+\begin{eqnarray*}
+    u_{t}=a^{2}u_{xx}
+\end{eqnarray*}
+в данном случае уравнение \textit{однородно}. В уравнении
+\begin{description}[noitemsep,topsep=0pt]
+    \item[$a^{2}=\frac{\lambda}{c\rho}$] - коэффициент температуропроводности
+        \subitem $\lambda$ - коэффициент теплопроводности материала
+        стержня
+        \subitem $c$ - удельня теплоемкость
+        \subitem $\rho$ - плотность массы
+\end{description}
+
+\paragraph{На боковой поверхности происходит конвективный теплообмен}
+\begin{eqnarray*}
+    u_{t}=a^{2}u_{xx}+\frac{P\alpha}{Sc\rho}(T_{\textmd{ср}}-T)
+    =a^{2}u_{xx}+b(T_{\textmd{ср}}-u)
+\end{eqnarray*}
+где:
+\begin{description}[noitemsep,topsep=0pt]
+    \item ${P}$ - периметр сечения
+    \item $\alpha$ - к-ф. теплообмена
+    \item $S$ - площадь поперечного сечения
+    \item $c$ - теплоемкость материала
+    \item $\rho$ - плотность материала
+    \item $T_{\textmd{ср}}$ - температура среды
+    \item $T$ - температура материала
+\end{description}
+\textit{обычно дробь обозначают одним символом, когда она константа.}
+
+\par Более того, воспользовавшись приведением к более простому виду
+(\textit{с помощью замены $u=Ve^{\lambda x+\mu t}$ можно привести
+уравнение к однородному относительно $V$})
+
+\subsection{Вид начальных условий}
+\paragraph{Начальная температура равна произвольной функции.} \textit{Начальное
+условие} \index{Начальное условие}
+\begin{eqnarray*}
+    u(x,0)=f(x)
+\end{eqnarray*}
+если $f(x)=0$ - условие \textit{однородно}
+
+
+\subsection{Вид краевых условий}
+
+\paragraph{Температура концов поддерживается равной произвольной
+функции.}
+Краевое условие \textit{первого типа}\index{Краевое условие первого типа}
+\begin{eqnarray*}
+    u(0,t)=\varphi_{1}(t),\ \ u(l,t)=\varphi_{2}(t)
+\end{eqnarray*}
+если $\varphi_{i}(t)=0$ - данное условие \textit{однородно}
+
+\paragraph{Теплоизолированные концы.} Краевое условие \textit{второго рода}
+\index{Краевое условие второго рода}
+\begin{eqnarray*}
+    u_{x}(0,t)=0,\ \ u_{x}(l,t)=0
+\end{eqnarray*}
+
+\paragraph{Тепловой поток.} Краевое условие \textit{второго рода}
+\begin{eqnarray*}
+    u_{x}=-\frac{q}{\lambda S}
+\end{eqnarray*}
+$q$ - данный в задаче тепловой поток (то есть надо провести операции
+чтобы привести его к нужному виду). Если нагрев идет справа, то
+производная должна иметь отрицательный знак. Если нагрев идет слева -
+положительный знак. В уравнении:
+\begin{description}[noitemsep,topsep=0pt]
+    \item $\lambda$ - коэффициент теплопроводности
+    \item $S$ - площадь сечения
+\end{description}
+
+\section{Методы решений}
+\subsection{Однородные краевые условия}
+\subsubsection{Через функцию источника}
+\paragraph{Однородное уравнение}
+\paragraph{Бесконечная прямая, неоднородное начальное условие}
+\begin{eqnarray*}
+    u(x,t)=\int\limits_{-\infty}^{\infty}G(x,\xi,t)\varphi(\xi)d\xi
+\end{eqnarray*}
+где
+\begin{eqnarray*}
+    G(x,\xi,t)
+    =\frac{1}{2\sqrt{\pi a^{2}t}}e^{-\frac{(x-\xi)^{2}}{4a^{2}t}}
+\end{eqnarray*}
+
+\paragraph{Начальное неоднородное условие}
+\begin{eqnarray*}
+    u(x,t)=\int\limits_{0}^{l}\varphi(\xi)G(x,\xi,t)d\xi
+\end{eqnarray*}
+\subparagraph{Однородные краевые условия второго рода}
+\begin{eqnarray*}
+    G(x,\xi,t)=\frac{1}{l}+\frac{2}{l}\sum\limits_{k=1}^{\infty}
+    e^{-a^{2}\frac{\pi^{2}k^{2}}{l^{2}}t}
+    \cos{\frac{\pi k}{l}\xi}\cos{\frac{\pi k}{l}x}
+\end{eqnarray*}
+
+\paragraph{Однородное начальное условие}
+
+\paragraph{Неоднородное уравнение теплопроводности}
+\begin{eqnarray*}
+    u(x,t)=\int\limits_{0}^{t}\int\limits_{0}^{l}
+    f(\xi,\tau)G(x,\xi,t-\tau)d\xi d\tau
+\end{eqnarray*}
+
+\paragraph{И начальное неоднородное, и неоднородное уравнение}
+\begin{eqnarray*}
+    u(x,t)=\int\limits_{0}^{t}\int\limits_{0}^{l}
+    f(\xi,\tau)G(x,\xi,t-\tau)d\xi d\tau
+    +\int\limits_{0}^{l}\varphi(\xi)G(x,\xi,t)d\xi
+\end{eqnarray*}
+\textit{просуммировали два решения: начальное неоднородное без
+неоднородности в уравнении и неоднородное в уравнении без начального
+неоднородного}
+
+
+
+\subsubsection{Метод разделения переменных}
+\paragraph{Решаем однородное}
+Функция теплопроводности представляется в виде:
+\begin{eqnarray*}
+    u(x,t)=\sum\limits_{k=1}^{\infty}T_{k}(t)X_{k}(x)
+\end{eqnarray*}
+или
+\begin{eqnarray*}
+    u(x,t)=T(t)X(x)
+\end{eqnarray*}
+Подставляем $u(x,t)=X(x)T(t)$ в уравнение теплопроводности, получаем
+\begin{eqnarray*}
+    XT'=a^{2}X''T
+\end{eqnarray*}
+делим на $XTa^{2}$, получаем
+\begin{eqnarray*}
+    \frac{X''}{X}=\frac{T'}{a^{2}T}=\lambda^{2}
+\end{eqnarray*}
+отсюда получаем два уравнения:
+\begin{eqnarray*}
+    X''-\lambda^{2}X=0,\ \ T'+a^{2}\lambda^{2}T=0
+\end{eqnarray*}
+
+\paragraph{Находим собственные значения, собственные функции}
+Рассматриваем несколько знаков при $\lambda^{2}$: $-\lambda^{2}$,
+$+\lambda^{2}$ и $0$. Для каждого из них решаем получившееся ДУ.
+Выбираем такие константы, чтобы выполнялись краевые условия, а сама
+функция $X(x)$ не равнялась нулю. Там же будут периодические функции,
+которые и будут являтся собственными функциями.
+\par Собственные значения будут $\lambda_{k}$, собственными функциями будут
+$X_{k}$ (\textit{находим исходя из краевых условий})
+
+\paragraph{Находим значения $T$ или $T_{k}$}
+Из второго выражения получаем значения для $T$
+\begin{eqnarray*}
+    T'+\lambda^{2}a^{2}T=0 \Rightarrow
+    T_{k}=C_{k}\cdot e^{-a^{2}\lambda_{k}^{2}t}
+\end{eqnarray*}
+
+\paragraph{Подставляем в уравнение теплопроводности}
+Выразив $X_{k}(x)$ и $T_{k}(t)$ подставляем их в уравнение
+$u(x,t)=\sum\limits_{k=0}^{\infty}T_{k}(t)X_{k}(x)$
+
+\paragraph{Удовлетворяем начальному условию}
+Это может быть либо \textit{однородное} начальное условие: $u(x,0)=0$, в этом
+случае получится несложное ДУ. Либо \textit{неоднородное} начальное условие:
+$u(x,0)=\varphi(x)$
+\begin{eqnarray*}
+    u(x,0)=\varphi(x)=\sum\limits_{k=0}^{\infty}T_{k}(0)X_{k}(x)
+    =\sum\limits_{k=0}^{\infty}\varphi_{k}X_{k}(x)
+\end{eqnarray*}
+где последняя сумма - разложение $\varphi(x)$ по собственной функции
+(синусу либо косинусу)
+\par \textit{Считаем коэффициенты}
+\begin{eqnarray*}
+    C_{k}=\varphi_{k}=\frac{1}{\Vert X_{k} \Vert^{2}}\int\limits_{0}^{l}
+    \varphi(\xi)X_{k}(\xi)d\xi
+\end{eqnarray*}
+Подставляем эти коэффициенты в функцию теплоты:
+\begin{eqnarray*}
+    u(x,t)=\sum\limits_{k=0}^{\infty}T_{k}(t)X_{k}(x)
+\end{eqnarray*}
+
+
+\paragraph{Решаем неоднородное}
+Так же можно использовать $u=V\cdot e^{\lambda x+\mu t}$
+\par Функцию $f(x,t)$ раскладываем в ряд фурье по синусам или косинусам (тому
+же, что и собственные функции у $u(x,t)$)
+\par Подставляем полученный ряд в однородную формулу теплопроводности
+(например, если уравнение имеет вид $u_{t}=a^{2}u_{xx}+f(x,t)$, то мы
+считаем первую производную по $t$ и вторую производную по $x$ и
+подставляем полученные ряды в $u_{t}=a^{2}u_{xx}$)
+\par Получаем неоднородное дифференциальное уравнение относительно
+$T_{k}$. Сначала ищем однородное, потом частное решения и общее решение
+будет являтся суммой. (Выражаем $C_{k}$ из однородного, подставляем его
+в частное, суммируем оба решения). Затем используем краевое условия для
+определения коэффициентов $C_{k}$
+\par Записываем общее решение (есть $T_{k}$ и есть $X_{k}$).
+\textit{Можно поменять местами порядок интегрирования и суммирования и
+получим формулу через функцию источника}
+\paragraph{Последний штрих}
+Находим коэффициенты $C_{k}$ используя начальные условия.
+(\textit{Может понадобится разложить какую-нибудь функцию в ряд по
+косинусам/синусам, если константы образуют сумму})
+\paragraph{Пример разложения ряда для начального неоднородного краевого условия}
+\begin{eqnarray*}
+    &&u(x,0)=C_{0}+\sum\limits_{k=1}^{\infty}C_{k}\cdot\cos{\frac{\pi
+    k}{l}}x
+    =\varphi(x)=\varphi_{0}+\sum\limits_{k=1}^{\infty}\varphi_{k}
+    \cdot\cos{\frac{\pi k}{l}}x  \\
+    &&C_{0}=\varphi_{0}=\frac{1}{\Vert x_{0}\Vert^{2}}
+    \cdot \int\limits_{0}^{l}X_{0}(\xi)\varphi(\xi)d\xi
+    =\frac{1}{l}\int\limits_{0}^{l}\varphi(\xi)d\xi\\
+    &&C_{k}=\varphi_{k}=\frac{1}{\Vert X_{k}
+    \Vert^{2}}\int\limits_{0}^{l}X_{k}(\xi)\varphi(\xi)\varphi(\xi)d\xi
+    =\frac{2}{l}\int\limits_{0}^{l}\cos{\frac{\pi
+    k}{l}\xi}\varphi(\xi)d\xi
+\end{eqnarray*}
+Где норма считается как
+\begin{eqnarray*}
+    &&\Vert X_{0} \Vert^{2}
+    =\int\limits_{0}^{l}1d\xi=l\\
+    &&\Vert X_{k} \Vert^{2}
+    =\int\limits_{0}^{l}\cos^{2}{\frac{\pi k}{l}}\xi d\xi =\frac{l}{2}
+\end{eqnarray*}
+\textit{В общем случае, если вместо функции стоит собственная функция
+или константа, то можно не расскладывать в ряд, а сразу определить
+коэффициенты}
+
+
+\subparagraph{Пример определения коэффициентов}
+\begin{eqnarray*}
+    C'_{k} & = & f_{k}(t)\cdot e^{g(k)t}\\
+    C_{k} & = & \int\limits_{0}^{t}f_{k}(\tau)e^{g(k)\tau}d\tau
+\end{eqnarray*}
+
+
+\subsection{Неоднородное уравнение теплопроводности}
+Используем замену $u=Ve^{\lambda x+\mu t}$. Решаем однородное уравнение
+теплопроводности
+
+\subsection{Неоднородные краевые условия}
+Используем \textit{метод редукции}\index{Метод редукции} Представляем
+уравнение теплопроводности в виде:
+\begin{eqnarray*}
+    u(x,t)=v(x,t)+w(x,t)
+\end{eqnarray*}
+Тогда постановка задачи будет следующей
+\begin{eqnarray*}
+    \left\{
+    \begin{array}{l}
+    v_{t}+w_{t}=a^{2}v_{xx}+a^{2}w_{xx}+f(x,t)\\
+    v(x,0)+w(x,0)=\varphi(x)\\
+    v(0,t)+w(0,t)=\mu_{1}(t)\\
+    v(l,t)+w(l,t)=\mu_{2}(t)\\
+    \end{array}
+    \right.
+\end{eqnarray*}
+Разделяем эту систему на две системы, где под функцию $w$ всегда идет
+неоднородность краевых условий. Саму ф-цию $w$ выбираем любую,
+единственное - должны удовлетворить краевым условиям. Упростим себе
+решение, если потребуем, чтобы $w_{xx}=0$ (\textit{возможно \textbf{только для
+первых краевых условий} и \textbf{для смешанных краевых условий}}). Получаем
+следующее
+\begin{eqnarray*}
+    &&\left\{
+    \begin{array}{l}
+        w_{xx}=0\\
+        w(0,t)=\mu_{1}(t)\\
+        w(l,t)=\mu_{2}(t)
+    \end{array}
+    \right.\ \ \textmd{далее решаем ДУ чтобы найти }w\\
+    &&w(x,t)=C_{1}x+C_{2}\ \ \textmd{находим к.ф. }C_{1},\ C_{2}\\
+    &&w(0,t)=C_{2}=\mu_{1}(t)\\
+    &&w(l,t)=C_{1}l+\mu_{1}(t)=\mu_{2}(t)\\
+    &&C_{1}=\frac{1}{l}\left(\mu_{2}(t)-\mu_{1}(t)\right)
+\end{eqnarray*}
+Нашли функцию $w$
+\begin{eqnarray*}
+    w(x,t)=\frac{x}{l}\left(\mu_{2}-\mu_{1}(t)\right)+\mu_{1}(t)
+\end{eqnarray*}
+если первое краевое - 2-го рода, а второе краевое - первого рода:
+\begin{eqnarray*}
+    w(x,t)=\mu_{1}(t)(x-l)+\mu_{2}(t)
+\end{eqnarray*}
+
+Находим ее значения/производные (для подстановки в систему уравнений,
+которую мы разделили)
+\begin{eqnarray*}
+    &&w_{t}=\frac{x}{l}\left(\mu'_{2}-\mu'_{1}\right)+\mu'_{1}\\
+    &&w(x,0)=\frac{x}{l}\left(\mu_{2}(0)-\mu_{1}(0)\right)+\mu_{1}(0)\\
+    &&w(x,0)=\frac{x}{l}\left(\mu_{2}(0)-\mu_{1}(0)\right)+\mu_{1}(0)\\
+\end{eqnarray*}
+В итоге, после подсчета и подстановки $w$ получаем задачу:
+\begin{eqnarray*}
+&&\left\{
+    \begin{array}{l}
+        v_{t}=a^{2}+(f(x,t)-w_{t})=a^{2}v_{xx}+\widetilde{f}(x,t)\\
+        v(x,0)=\varphi(x)-w(x,0)=\widetilde{\varphi}(x,t)\\
+        v(0,t)=0\\
+        v(l,t)=0
+    \end{array}
+\right.
+\end{eqnarray*}
+Уже знаем как решать \textit{однородные краевые условия, неоднородное
+уравнение, неоднородное начальное условие: сумма неоднородного уравнения
+и неоднородного начального условия}
+\par Напоминаю, решением является сумма $u(x,t)=v(x,t)+w(x,t)$
+
+\subsubsection{Вторые краевые условия}
+\begin{eqnarray*}
+    &&\left\{
+    \begin{array}{l}
+        w=C_{1}x^{2}+C_{2}x\\
+        w(0,t)=\mu_{1}(t)\\
+        w(l,t)=\mu_{2}(t)
+    \end{array}
+    \right.\ \ \textmd{далее находим }C_{1},\ C_{2}\\
+    &&w_{x}(x,t)=2C_{1}x+C_{2}\\
+    &&w_{x}(0,t)=C_{2}=\mu_{1}(t)\ \Rightarrow C_{2} = \mu_{1}\\
+    &&w_{x}(l,t)=2C_{1}l+\mu_{1}=\mu_{2}\ \Rightarrow
+    C_{1}=\frac{1}{2l}(\mu_{2}-\mu_{1})\\
+    &&w(x,t)=\frac{x^{2}}{2l}(\mu_{2}(t)-\mu_{1}(t))+\mu_{1}(t)x
+    \ \ \textmd{подставили постоянные}\\
+    &&w_{xx}=\frac{\mu_{2}-\mu_{1}}{l}
+\end{eqnarray*}
+
+
+\section{Функции источников}
+\subsection{Однородные краевые условия}
+\paragraph{Для первых краевых условий}
+\begin{eqnarray*}
+    G(x,\xi,t)
+    =\frac{2}{l}\sum\limits_{k=1}^{\infty}
+    \sin{\frac{\pi k}{l}x}
+    \sin{\frac{\pi k}{l}\xi}
+    \cdot e^{-\frac{\pi^{2}k^{2}}{l^{2}}a^{2}t}
+\end{eqnarray*}
+
+\paragraph{Для вторых краевых условий}
+\begin{eqnarray*}
+    G(x,\xi,t)=\frac{1}{l}+\frac{2}{l}\sum\limits_{k=1}^{\infty}
+    e^{-\frac{a^{2}\pi^{2}k^{2}}{l^{2}}t}\cos{\frac{\pi k}{l}\xi}
+    \cos{\frac{\pi k}{l}x}
+\end{eqnarray*}
+\paragraph{Для первой и второй}
+\begin{eqnarray*}
+    G(x,\xi,t)
+    =\frac{2}{l}\sum\limits_{k=0}^{\infty}
+    e^{-a^{2}(\frac{\pi(2k+1)}{2l})^{2}t}
+    \sin{\frac{\pi(2k+1)}{2l}x}
+    \cdot\sin{\frac{\pi(2k+1)}{2l}\xi}d\xi
+\end{eqnarray*}
+\paragraph{Для второй и первой}
+\begin{eqnarray*}
+    G(x,\xi,t)
+    =\frac{2}{l}\sum\limits_{k=0}^{\infty}
+    e^{-a^{2}(\frac{\pi(2k+1)}{2l})^{2}t}
+    \cos{\frac{\pi(2k+1)}{2l}x}
+    \cdot\cos{\frac{\pi(2k+1)}{2l}\xi}d\xi
+\end{eqnarray*}
+
+\paragraph{Для третьей краевой задачи}
+\subsection{Как выводить}
+\begin{eqnarray*}
+    G(x,\xi,t)
+    =\sum\limits_{k=0}^{\infty}\frac{1}{\Vert X_{k} \Vert^{2}}
+    \cdot e^{-a^{2}\lambda_{k}^{2}t}
+    \cdot X_{k}(x)\cdot X_{k}(\xi)
+\end{eqnarray*}
+
+
+\section{Собственные функции}
+\subsection{Для первых краевых условий (однородных)}
+сф: $X_{k}(x)=\sin\frac{\pi k}{l}x$, сз: $\lambda_{k}=\frac{\pi k}{l}$,
+где $k=1,\ldots$
+\subsection{Для вторых краевых условий (однородных)}
+сз: $\lambda_{k}=\frac{\pi k}{l}$, сф: $X_{k}=C_{k}\cos{\frac{\pi k}{l}x}$
+
+
+
+\section{Дополнительная инфа}
+\subsection{Что может встретиться}
+\paragraph{Задача Штурмо-Лиувилля}\index{Задача Штурмо-Лиувилля}
+Находим собственные значения и собственные функции
+\paragraph{Задачи из учебника}
+\begin{description}
+    \item 23
+    \item 24
+    \item 25
+\end{description}
+
+
+\subsection{Решение ДУ}
+\paragraph{Примеры решений неоднородного ДУ}
+\subparagraph{Однородное решение:}
+\begin{eqnarray*}
+    T'_{k}+g(k)T_{k}=0\ \Rightarrow T_{\textmd{одн}}=C_{k}\cdot
+    e^{-g(k)t}
+\end{eqnarray*}
+где $g(k)$ - любая функция, $T_{k}$ - функция от $t$
+
+\subparagraph{Частное решение:}
+\begin{eqnarray*}
+    T'_{k}+g(k)T_{k}= f_{k}(t)\ \Rightarrow T_{\textmd{одн}}=C_{k}(t)\cdot
+    e^{-g(k)t}
+\end{eqnarray*}
+где $g(k)$ - любая функция, $T_{k}$ - функция от $t$, $C_{k}(t)$ -
+неопределённая функция от $t$
+
+\subsection{Ряды Фурье}
+
+\paragraph{Пример разложения функции в ряд Фурье}
+\begin{eqnarray*}
+    f(x,t)=\sum\limits_{k=1}^{\infty}f_{k}(t)\sin\frac{\pi k}{l}x
+\end{eqnarray*}
+где
+\begin{eqnarray*}
+    f_{k}(t)=\frac{2}{l}\int\limits_{0}^{l}f(\xi,t)\sin\frac{\pi
+    k}{l}\xi d\xi
+\end{eqnarray*}
+
+\subsection{Анализ рядов}
+\paragraph{Теорема Лейбница}
+Остаток ряда не превосходит по абсолютной величине первого из
+отброшенных членом (\textit{для знакочередующегося ряда})
+
+\newpage\section{Литература}
+\begin{enumerate}
+    \item Будак
+    \item Тихонов
+\end{enumerate}
+
+
+\end{document}

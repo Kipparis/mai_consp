@@ -1,0 +1,644 @@
+\documentclass[12pt]{article}
+\usepackage{science}
+
+\usepackage{array}
+\setlength\extrarowheight{2pt} % or whatever amount is appropriate
+
+%Russian-specific packages
+%--------------------------------------
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+%--------------------------------------
+
+% \usepackage{bookmark}
+
+\newcommand{\M}{\mathsf{M}}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+%Hyphenation rules
+%--------------------------------------
+\usepackage{hyphenat}
+\hyphenation{ма-те-ма-ти-ка вос-ста-нав-ли-вать про-стран-ствен-но}
+\hyphenation{про-стран-ствен-но}
+%--------------------------------------
+\usepackage[margin=1.0in]{geometry}
+
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
+\usepackage{bookmark}
+
+% indent first line after section
+\usepackage{indentfirst}
+
+\setlength{\emergencystretch}{10pt}
+\hbadness=10000
+\hfuzz=20.002pt
+
+% \renewcommand\kappa{\text{\ae}}
+
+\usepackage{makeidx}
+\makeindex
+
+% keep this in the very bottom
+% \usepackage[pdftex]{hyperref}
+\begin{document}
+
+\tableofcontents
+\newpage
+\printindex
+
+\newpage
+\section{Комбинаторика}
+\begin{definition}
+    {Перестановки}
+    {Перестановки}
+    число объектов неизменно, изменяется только их порядок. Формула:
+    \begin{displaymath}
+        P_{n}=n!
+    \end{displaymath}
+\end{definition}
+
+\begin{definition}
+    {Размещения}
+    {Размещения}
+    из $n$ объектов выбираем $m$ различных объектов и переставляем их
+    всеми возможными способами. Формула:
+    \begin{displaymath}
+        A_{n}^{m}=\frac{n!}{(n-m)!}
+    \end{displaymath}
+\end{definition}
+
+\begin{definition}
+    {Сочетания}
+    {Сочетания}
+    из $n$ объектов выбираем всевозможные пары по $m$ объектов (порядок
+    не имеет значения). Формула:
+    \begin{displaymath}
+        C_{n}^{m}=\frac{n!}{m!(n-m)!}
+    \end{displaymath}
+\end{definition}
+
+\newpage
+\section{Формулы}
+\begin{theorem}
+    {Сложение вероятностей}
+    {Сложение вероятностей}
+    {}
+    Если (попарно) несовместимы:
+    \begin{displaymath}
+        P\left(\sum\limits_{i=1}^{n}A_{i}\right)=\sum\limits_{i=1}^{n}P\left(A_{i}\right)
+    \end{displaymath}
+    Иначе:
+    % TODO: вставить полную формулу
+    \begin{displaymath}
+        P(A+B)=P(A)+P(B)-P(AB)
+    \end{displaymath}
+\end{theorem}
+
+\begin{theorem}
+    {Умножение вероятностей}
+    {Умножение вероятностей}
+    {}
+    Если (попарно) независимы:
+    \begin{displaymath}
+        P\left(\prod\limits_{i=1}^{n}A_{i}\right)=\prod\limits_{i=1}^{n}P\left(A_{i}\right)
+    \end{displaymath}
+    Иначе:
+    % TODO: формула условной вероятности полная
+    \begin{displaymath}
+        P(A\cdot B)=P(A)\cdot P(B|A)
+    \end{displaymath}
+\end{theorem}
+
+\begin{theorem}
+    {Формула полной вероятности}
+    {Формула полной веростности}
+    {}
+    \begin{displaymath}
+        P(A)=\sum\limits_{k=1}^{n}P(H_{k})\cdot P(A|H_{k})
+    \end{displaymath}
+    где $H_{1},H_{2},\ldots,H_{n}$ - полная группа гипотез.
+\end{theorem}
+
+\begin{theorem}
+    {Формула Байеса.}
+    {Формула Байеса.}
+    {}
+    \begin{displaymath}
+        P(H_{m}|A)=\frac{P(H_{m})\cdot P(A|H_{m})}{P(A)}
+        =\frac{P(H_{m}))\cdot
+        P(A|H_{m})}{\sum\limits_{k=1}^{n}P(H_{k})\cdot P(A|H_{k})}
+    \end{displaymath}
+\end{theorem}
+
+\newpage
+\section{Общие сведения}
+\begin{definition}
+    {Функция распределения $F(x)$}
+    {Функция распределения}
+    функция, которая определяет вероятность того, что значение окажется
+    меньшим или равным чем то, что в аргументе
+    \begin{displaymath}
+        F(x)=f(\xi<x)
+    \end{displaymath}
+\end{definition}
+
+\begin{definition}
+    {Закон распределения}
+    {Закон распределения}
+    таблица, в верхней строке которой перечислены все значения величины
+    $\xi$, а в нижней строке соответствующие им вероятности
+    \begin{displaymath}
+        p_{n}=P(\xi=x_{n})
+    \end{displaymath}
+\end{definition}
+
+\subsection{Математическое ожидание}
+\begin{definition}
+    {Математическое ожидание}
+    {Математическое ожидание}
+    Для дискретных или счетных событий:
+    \begin{displaymath}
+        M(\xi)=\sum\limits_{k}x_{k}p_{k}
+        =\sum\limits_{k}g(x_{k})p_{k}
+    \end{displaymath}
+    Для непрерывных:
+    \begin{displaymath}
+        M(\xi)=\int\limits_{-\infty}^{+\infty}xf_{\xi}(x)dx
+    \end{displaymath}
+    и
+    \begin{displaymath}
+        M(\xi\cdot\eta)=\int\limits_{-\infty}^{+\infty}\int\limits_{-\infty}^{+\infty}
+        xyf_{\xi\eta}(x,y)dx\,dy
+    \end{displaymath}
+    Свойства:
+    \begin{enumerate}
+        \item $M(C)=C$
+        \item $M(\xi+\eta)=M(\xi)+M(\eta)$
+        \item $M(\lambda\xi)=\lambda M(\xi)$
+    \end{enumerate}
+\end{definition}
+
+\subsection{Дисперсия}
+\begin{definition}
+    {Дисперсия}
+    {Дисперсия}
+    \begin{displaymath}
+        var(\xi)=D(\xi)=M(\xi^{2})-(M(\xi))^{2}=M\left[(\xi-M\xi)^{2}\right]
+    \end{displaymath}
+    Свойства:
+    \begin{enumerate}
+        \item $D(-\xi)=D(\xi)$
+        \item $D(\xi+C)=D(\xi)$
+        \item $D(\lambda\xi)=\lambda^{2}D(\xi)$
+        \item $D(a\xi+b\eta)=a^{2}D(\xi)+b^{2}D(\eta)+2\textmd{cov}(a\xi,b\eta)$
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    {Среднеквадратическое отклонение}
+    {Среднеквадратическое отклонение}
+    \begin{displaymath}
+        \sigma_{\xi}=\sqrt{D(\xi)}
+    \end{displaymath}
+\end{definition}
+
+\subsection{Ковариация}
+\begin{definition}
+    {Ковариация}
+    {Ковариация}
+    \begin{displaymath}
+        \textmd{cov}(X,Y)=k_{XY}=M[(X-M[X])(Y-M[Y])]=M[XY]-M[X]M[Y]
+    \end{displaymath}
+    Свойства:
+    \begin{enumerate}
+        \item $\textmd{cov}(\xi,\xi)=D[\xi]$
+        \item $\textmd{cov}(\xi,\eta)=\textmd{cov}(\eta,\xi)$
+        \item $\textmd{cov}(a_{1}\xi+b_{1};a_{2}\eta+b_{2})=a_{1}a_{2}\textmd{cov}(\xi,\eta)$
+    \end{enumerate}
+\end{definition}
+
+\subsection{Корреляция}
+\begin{definition}
+    {Корреляция (коэффицент корреляции)}
+    {Корреляция}
+    \begin{displaymath}
+        \textmd{corr}(X,Y)=r_{XY}=\rho_{XY}=\textmd{cov}(X,Y)/(\sigma_{X}\sigma_{Y})
+    \end{displaymath}
+\end{definition}
+
+\newpage
+\section{Основные распределения}
+\subsection{Биномиальное распределение}
+\par Обозначение: $\xi \sim Bi(n,p)$ - число успехов в $n$ испытаниях
+Бернулли с вероятностью успеха $p$ в отдельном испытании.
+\par $p_{k}=P_{n}(k)=P(\xi=k)=C_{n}^{k}p^{k}q^{n-k}$.
+% сделать через таблицу
+\par Мат. ожидание: $M(\xi)=np$
+\par Дисперсия: $D(\xi)=npq$
+\par Мода: $(n+1)p-1\leqslant k^{*}\leqslant(n+1)p$
+\par Оценка:
+\begin{eqnarray*}
+    Bi(N;\theta) \Rightarrow \widehat{\theta}_{n}=\frac{\overline{X}_{n}}{N}
+\end{eqnarray*}
+
+\par Пример: $\xi$ - количество принятых сигналов, если вероятность приема
+самолетом радиосигнала при каждой передаче $p = 0,7$. $\xi \sim Bi(n,p$
+\par Физический смысл: число успехов
+
+\newpage
+\subsection{Геометрическое распределение}
+\par Обозначение: $\xi \sim G(p)$
+\par $P(\xi=k)=(1-p)^{k-1}p$
+\par Физический смысл: число опытов до 1-го успеха в схеме Бернулли
+\par Мат. ожидание: $M[\xi]=\frac{1}{p}$
+\par Дисперсия: $D[\xi]=\frac{1-p}{p^{2}}$
+\par Мода: $k^{*}=1$
+\par Пример: $\xi$ - количество изделий которое выпускает автоматическая
+линия между двумя настройками, если настройка производится при любом
+выпуске бракованной детали.
+
+\newpage
+\subsection{Распределение Пуассона}
+\par Обозначение: $\xi \sim \textmd{П}(a) \sim Pois(a),\ a>0$
+\par $P(\xi=k)=\frac{a^{k}}{k!}e^{-a},\ k=0,1,2...$
+\par Физический смысл: число событий из пуассоновского потока событий,
+происходящее за промежуток времени фиксированной длинны.
+\par Мат. ожидание: $M[\xi]=a$
+\par Дисперсия: $D[\xi]=a$
+\par Мода: $k^{*} = \lfloor a\rfloor$ - целая часть
+\par МП оценка: $\xi\sim\textmd{П}(\theta),\ \theta > 0,\ \
+\widehat{\theta}_{n}=\overline{X}_{n}$
+\par Пример
+
+\newpage
+\subsection{Экспоненциальное распределение}
+\par Обозначение: $\xi \sim E(\lambda) \sim Exp(\lambda)$
+\par $f_{\xi}(x)=\left\{\begin{array}{ll}
+        0, & x<0 \\
+        \lambda e^{-\lambda x}, & x\geqslant 0
+\end{array}\right.$
+\par Физический смысл: время ожидание в распределении Пуассона.
+\par Мат. ожидание: $M[\xi]=\frac{1}{\lambda}$
+\par Дисперсия: $D[\xi]=\frac{1}{\lambda^{2}}$
+\par Функция распределения: $F_{\xi}(x)=\left\{\begin{array}{ll}
+        0, & x<0 \\
+        1-e^{-\lambda x}, & x\geqslant 0
+\end{array}\right.$
+\par МП оценка: $\widehat{\theta}_{n}=\frac{1}{\overline{X}_{n}}$
+
+\par Пример: время между появлениями двух последовательных покупателей
+
+\newpage
+\subsection{Равномерное распределение на отрезке}
+\par Обозначение: $\xi \sim R(a,b) \sim U(a,b)$
+\par $f_{\xi}(x)=\left\{\begin{array}{ll}
+        \frac{1}{b-a}, & a\leqslant x\leqslant b
+        \\ 0, & \textmd{иначе}
+\end{array}\right.$
+
+\par Функция распределения: $F_{\xi}(x)=\left\{\begin{array}{ll}
+        0, & x<a
+        \\ \frac{x-a}{b-a}, & a\leqslant x\leqslant b
+        \\ 1, & x>b
+\end{array}\right.$
+\par Мат. ожидание: $M[\xi]=\frac{a+b}{2}$
+\par Дисперсия: $D[\xi]=\frac{(b-a)^{2}}{12}$
+\par МП оценки: $\xi\sim R(\theta_{1},\theta_{2}),
+\ \widehat{\theta_{1}}_{n} = X_{1},
+\ \widehat{\theta_{2}}_{n} = X_{(n)}$
+\par Свойства МП оценок:
+\begin{eqnarray*}
+    & & \M [\widehat{\theta_{2}}_{n}] = \frac{n}{n+1}\theta_{2}
+    ,\ \ \theta_{1}=0\\
+    \\& & f_{\widehat{\theta_{2}}_{n}}(x)=\frac{nx^{n-1}}{\theta_{2}^{n}}
+    ,\ \ \theta_{1}=0,\ \ x\in \left[0,\theta_{2}\right]\\
+\end{eqnarray*}
+
+
+
+
+\newpage
+\subsection{Нормальное распределение}
+\par Обозначение: $\xi \sim N(m,\sigma^{2})$
+\par \[
+    f_{\xi}(x)=\frac{1}{\sqrt{2\pi}\sigma}e^{\frac{-(x-m)^{2}}{2\sigma^{2}}}
+\]
+\par Физический смысл: везде используется
+\par Мат. ожидание: $M[\xi]=m$
+\par Дисперсия: $D[\xi]=\sigma^{2}$
+\begin{definition}
+    {Функция Лапласа}
+    {Функция Лапласа}
+    одна из двух функций (может быть разная терминология)
+    \begin{displaymath}
+        \Phi_{0}(x)=\frac{1}{\sqrt{2\pi}}\int\limits_{0}^{x}e^{-\frac{t^{2}}{2}}dt
+        =\Phi(x)-\frac{1}{2}
+    \end{displaymath}
+    или
+    \begin{displaymath}
+        \Phi(x)=\frac{1}{\sqrt{2\pi}}\int\limits_{-\infty}^{x}e^{-\frac{t^{2}}{2}}dt
+    \end{displaymath}
+    - функция распределения СВ $N(0,1)$
+\end{definition}
+\par Функция распределения:
+$F_{\xi}(x)
+=\Phi\left(\frac{x-m}{\sigma}\right)
+=\frac{1}{2}+\Phi_{0}\left(\frac{x-m}{\sigma}\right)$
+\par Пример
+
+\newpage
+\section{Случайные векторы}
+
+\begin{definition}
+    {Функция распределения случайных векторов}
+    {Функция распределения случайных векторов}
+    \begin{displaymath}
+        F_{\xi_{1}\ldots \xi_{n}}(x_{1},\ldots,x_{n})
+        =\int\limits_{-\infty}^{x_{1}}\ldots\int\limits_{-\infty}^{x_{n}}
+        f_{\xi_{1}\ldots\xi_{n}}(t_{1},\ldots,\xi_{n})dt_{1}\ldots dt_{n}
+    \end{displaymath}
+\end{definition}
+
+\par Важные свойства:
+\begin{enumerate}
+    \item \begin{displaymath}
+            \int\limits_{-\infty}^{+\infty}f_{\xi\eta}(x,y)dy=f_{\xi}(x),
+            \ \ \ \int\limits_{-\infty}^{+\infty}f_{\xi\eta}(x,y)dx=f_{\eta}(y)
+        \end{displaymath}
+\end{enumerate}
+
+Ковариация, коэффицент ковариации, корелляция
+Независимость
+
+\begin{definition}
+    {Коррелируемость СВ}
+    {Коррелируемость СВ}
+    когда выполняется равенство:
+    \begin{displaymath}
+        \textmd{cov}(\xi,\eta)=M(\xi\eta)-M(\xi)M(\eta)=0
+    \end{displaymath}
+\end{definition}
+
+\begin{definition}
+    {Независимость СВ}
+    {Независимость СВ}
+    когда выполняется равенство:
+    \begin{displaymath}
+        M(\xi\eta)=M(\xi)\cdot M(\eta)
+    \end{displaymath}
+    для дискретных СВ:
+    \begin{displaymath}
+        \forall x,y: P(\xi=x;\eta=y)=P(\xi=x)\times P(\eta=y)
+    \end{displaymath}
+    Если $\xi$ и $\eta$ независимы $ \Rightarrow $ некоррелируемые
+\end{definition}
+
+\begin{definition}
+    {Математическое ожидание случайного вектора}
+    {Математическое ожидание случайного вектора}
+    вектор из математических ожиданий его компонент
+    \begin{displaymath}
+        \xi=\left(
+            \begin{array}{c} \xi_{1} \\ \vdots \\ \xi_{n} \end{array}
+        \right);
+        \ \ \ M[\xi]=\left(
+            \begin{array}{c} M[\xi_{1}] \\ \vdots \\ M[\xi_{n}]\end{array}
+        \right)
+    \end{displaymath}
+\end{definition}
+
+\begin{definition}
+    {Ковариационная матрица случайного вектора}
+    {Ковариационная матрица случайного вектора}
+    \begin{displaymath}
+        K=\|k_{ij}\|_{i,j=1}^{n},\ \ k_{ij}=\textmd{cov}(\xi_{i},\xi_{j})
+    \end{displaymath}
+\end{definition}
+
+\begin{definition}
+    {Корреляционная матрица случайного вектора}
+    {Корреляционная матрица случайного вектора}
+    \begin{displaymath}
+        R=\|r_{ij}\|_{i,j=1}^{n},\ \ r_{ij}=\textmd{corr}(\xi_{i},\xi_{j})
+    \end{displaymath}
+\end{definition}
+
+\newpage
+\section{Условные распределения}
+
+\newpage \section{Закон больших чисел}
+\index{Центральные предельные теоремы}\textit{Центральные предельные
+теоремы} - класс теорем в теории
+вероятностей, утверждающих, что сумма достаточно большого количества
+слабо зависимых случайных величин, имеющих примерно одинаковые масштабы
+(ни одно из слагаемых не доминирует, не вносит в сумму определяющего
+вклада), имеет распределение, близкое к нормальному.
+
+\subsection{Приближение Муавра-Лапласа}
+$X \sim Bi(n,p)$
+\begin{tabular}{c|l}
+    Локальное &
+    $P(X=k) \approx \frac{1}{\sqrt{2\pi npq}}
+    \exp\left(-\frac{(k-np)^{2}}{2npq}\right)$
+    \\ \hline
+    Глобальное &
+    $P(l\leqslant X\leqslant m)
+    \approx \Phi_{0}\left(\frac{m-np}{\sqrt{npq}}\right)
+    - \Phi_{0}\left(\frac{l-np}{\sqrt{npq}}\right)$
+    \\ \hline
+    Погрешность &
+    $\frac{p^{2}+q^{2}}{\sqrt{npq}}$
+    \\ \hline
+\end{tabular}
+
+
+\subsection{Приближение Пуассона}
+$X \sim Bi(n,p)$
+\begin{tabular}{c|l}
+    Локальное &
+    $P(X=k)\approx\frac{(np)^{k}e^{-np}}{k!}$
+    \\ \hline
+    Глобальное &
+    $P(l\leqslant X\leqslant m)
+    \approx\sum\limits_{k=l}^{m}\frac{(np)^{k}e^{-np}}{k!}$
+    \\ \hline
+    Погрешность &
+    $np^{2}$
+    \\ \hline
+\end{tabular}
+
+\subsection{Неравенство Чебышева, усиленный вариант}
+Пусть $r$-й абсолютный момент СВ $X$ конечен. Тогда выполняется
+равенство
+\begin{displaymath}
+    P(\left|X\right| \geqslant \varepsilon)
+    \leqslant M\left[\left|X\right|^{r}\right]/\varepsilon^{r},
+    \ \ \varepsilon > 0
+\end{displaymath}
+\par \textit{Неравенство Чебышева} при $r=2$, $Y=X-m_{X}$
+\begin{displaymath}
+    P\left\{\left|X-m_{X}\right| \geqslant \varepsilon \right\}
+    \leqslant
+    \frac{M\left[\left|X-m_{X}\right|^{2}\right]}{\varepsilon^{2}}
+    \triangleq \frac{D\left[X\right]}{\varepsilon^{2}}
+\end{displaymath}
+
+\section{Статистика}
+\subsection{Виды статистик}
+\begin{enumerate}
+    \itemsep0em
+    \item $\overline{X}_{n}=\frac{1}{n}\sum\limits_{k=1}^{n}X_{k}$ -
+        \textit{выборочное среднее}
+    \item $\overline{S}_{n}^{2}=\frac{1}{n}\sum\limits_{k=1}^{n}(X_{k}
+        -\overline{X_{n}})^{2}$ - \textit{выборочная дисперсия}
+    \item $\overline{\nu}_{r}(n)=\frac{1}{n}\sum\limits_{k=1}^{n}
+        (X_{k})^{r},\ r=1,2,\ldots$ - \textit{выборочный начальный
+        момент }$r$-го порядка
+    \item $\overline{\mu}_{r}(n)=\frac{1}{n}\sum\limits_{k=1}^{n}
+        (X_{k}-\overline{X}_{n})^{r},\ r=1,2,\ldots$ - \textit{выборочный начальный
+        момент }$r$-го порядка
+    \item $\widehat{F}_{n}(x)=\frac{M_{n}(x)}{n}$ - \textit{выборочная
+        (эмпирическая) функция распределения}, где $M_{n}(x)$ -
+        случайное число элементов выборки, не превосходящих $x$
+    \item $\widehat{k}_{XY}(n)=\frac{1}{n}\sum\limits_{k=1}^{n}
+        X_{k}Y_{k}-\overline{X}_{n}\overline{Y}_{n}$ -
+        \textit{выборочная ковариация случайных величин } $X$ и $Y$
+\end{enumerate}
+
+\subsection{Методы построения точечных оценок параметров}
+Мы откуда-то узнали формулу распределения и хотим узнать какие у нее
+параметры.
+\subsubsection{Метод моментов}
+Можно использовать если СВ $X$ имеет конечные начальные моменты
+$\nu_{r}$ для всех $r\leqslant m$. Алгоритм:
+\begin{enumerate}
+    \itemsep0em
+    \item Найти аналитические выражения для начальных моментов
+        $\nu_{r}$(по формуле или из данного закона распределения):
+        \begin{eqnarray*}
+            \nu_{r}(\theta)
+            =\M\left\{X^{r}\right\}
+            =\int\limits_{-\infty}^{+\infty}x^{r}dF_{X}(x;\theta)
+            ,\ \ r=1,\ldots,m
+        \end{eqnarray*}
+    \item Вычислить соответствующие выборочные начальные моменты
+        (вычислять ничего не требуется, только пишешь формулу):
+        \begin{eqnarray*}
+            \overline{\nu}_{r}(n)
+            =\frac{1}{n}\sum\limits_{k=1}^{n}(X_{k})^{r},\ \ r=1,\ldots,m
+        \end{eqnarray*}
+    \item Составить систему из $m$ уравнения для переменных
+        $\{\theta_{1},\ldots,\theta_{m}\}^{T}$, приравнивая
+        соответствующие теоретические и выборочные моменты
+        \begin{eqnarray*}
+            \nu_{r}(\theta)=\overline{\nu}_{r}(n)
+            ,\ \ r=1,\ldots,m
+        \end{eqnarray*}
+    \item Найти решение $\widehat{\theta}_{n}$ системы уравнений -
+        \index{Оценка метода моментов}\textit{оценка метода моментов}
+\end{enumerate}
+\textit{обычно при решении используют первый начальный момент и второй
+центральный (мат ожидание и дисперсия соответственно)}
+
+\subsubsection{Метод максимального правдоподобия (ММП)}
+
+\begin{eqnarray*}
+    &&L(x_{1},\ldots,x_{n},\theta)=\prod_{k=1}^{n}f_{X}(x_{k},\theta)\\
+    &&\overline{L}(x_{1},\ldots,x_{n},\theta)=\ln L(x_{1},\ldots,x_{n},\theta)\\
+    &&\frac{\partial \overline{L}}{\partial\theta}=0
+\end{eqnarray*}
+
+\subsection{Свойства точечных оценок}
+\begin{enumerate}
+    \itemsep0em
+    \item $\M\left\{\widehat{\theta}_{n}-\theta_{0}\right\}\to 0
+        ,\ n \to \infty$ - \textit{асимптотическая несмещенность}
+        \subitem Или $\lim\limits_{n\rightarrow \infty}\M
+        [\widehat{\theta}_{n}]=\theta$
+    \item $\widehat{\theta}_{n} \stackrel{\textmd{P}}{\to }\theta$ -
+        \textit{состоятельная}
+    \item $\widehat{\theta} \stackrel{\textmd{ п.н. }}{\to }\theta_{0},\
+        n \to \infty$ - \textit{сильная состоятельность}
+    \item $\widehat{\theta}_{n} \stackrel{\textmd{с.к.}}{\to }\theta$
+        ($\lim\limits_{n\rightarrow
+        \infty}M[(\widehat{\theta}_{n}-\theta)^{2}]=0$) -
+        \textit{состоятельная в среднем квадратическом}
+    \item $M[(\widehat{\theta}_{n}-\theta)^{2}] \leqslant
+        M[(\widetilde{\theta}_{n}-\theta)^{2}]
+        \ \ \forall\widetilde{\theta}_{n}$ - \textit{оптимальная в
+        среднем квадратическом}
+    \item $\exists \textmd{ детерменированная последовательность }
+        C_{n}$: $C_{n}\left(\widehat{\theta}_{n}-\theta\right)
+        \stackrel{d}{\to }u\sim N(0,1)$ - \textit{асимптотически
+        нормальная}
+    \item $\sqrt{ni(\theta_{0})}(\widehat{\theta}_{n}-\theta_{0})
+        \stackrel{\textmd{d}}{\to }\xi \sim N(0,1),\ n \to \infty$ -
+        \textit{асимптотическая нормальность}
+\end{enumerate}
+
+\subsection{Доказательство свойств точечных оценок}
+
+\begin{itemize}
+    \itemsep0em
+    \item Асимптотическая несмещенность:
+        \subitem Для доказательства $\lim\limits_{n\rightarrow \infty}\M
+        [\widehat{\theta}_{n}]=\theta$, надо найти закон распределения
+        $\widehat{\theta}_{n}$
+        \subitem Закон распределения $\widehat{\theta}_{n}$ найдем из
+        функции распредления
+        \subitem Функция распределения пытаемся вывести через
+        определение:
+        \begin{eqnarray*}
+            F_{\widehat{\theta}_{n}}(x)=P(\widehat{\theta}_{n}\leqslant x)
+        \end{eqnarray*}
+    \item Сильная состоятельность, состоятельность: Используем теорему Колмогорова
+    \item С.к. состоятельность:
+        \subitem По определению имеем уравнение
+        \begin{eqnarray*}
+            \M [(\widehat{\theta}_{n}-\theta)^{2}] \to 0,\ n\to\infty
+        \end{eqnarray*}
+        \subitem Раскрываем скобки и получаем
+        \begin{eqnarray*}
+            \M [\widehat{\theta}_{n}^{2}]-2\M
+            [\widehat{\theta}_{n}]\theta +\theta^{2}
+        \end{eqnarray*}
+\end{itemize}
+
+\subsection{Эффективность точечной оценки}
+
+\par Распределение \textit{регулярно}, если: (непрерывный случай)
+\begin{enumerate}
+    \itemsep0em
+    \item $\sqrt{p(x,\theta)}$ непрерывно дифференцироема по $\theta\in
+        \textmd{\textcircled{H}}$ для почти всех $x$ по мере Лебега
+    \item $i(\theta)=\int\limits_{-\infty}^{+\infty}
+        \left(\frac{\partial\ln
+        p(x,\theta)}{\partial\theta}\right)^{2}p(x,\theta)dx$ - конечно,
+        положительно, непрерывно по $\theta\in \textmd{\textcircled{H}}$
+\end{enumerate}
+
+\par Распределение \textit{регулярно}, если: (непрерывный случай)
+\begin{enumerate}
+    \itemsep0em
+    \item $\sqrt{p(x,\theta)}$ непрерывно дифференцироема по $\theta\in
+        \textmd{\textcircled{H}},\ \forall x\in\chi$
+    \item $i(\theta)=\sum\limits_{i=1}^{m}
+        \left(\frac{\partial\ln
+        P(X=x_{i},\theta)}{\partial\theta}\right)^{2}
+        p(X=x_{i},\theta)$
+\end{enumerate}
+
+Несмещённая оценка $\widehat{\theta}_{n}$ назыв\textbf{ается эффективной},
+если
+\begin{eqnarray*}
+    \M \left[\left(\widehat{\theta}_{n}-\theta\right)^{2}\right]
+    =\frac{1}{ni(\theta)}
+\end{eqnarray*}
+(должны быть выполнены условия регулярности)
+
+
+\end{document}

@@ -1,0 +1,359 @@
+\documentclass{article}[12pt]
+
+\input{preambule/main.tex}
+
+
+\begin{document}
+\tableofcontents
+\newpage
+\printindex
+\newpage
+
+\section{Основные определения в УМФ}
+\begin{definition}
+    {Уравнение в частных производных}
+    {Уравнение в частных производных}
+    уравнение, связывающее независимые переменные $x,y,z,t$, независимую
+    функцию $u(x,y,z,t)$ и ее частные производные по независимым
+    переменным:
+    \begin{eqnarray*}
+        F(x,y,z,t,u,u_{x},u_{y},u_{z},u_{xx},u_{xy},u_{xz},u_{yy},u_{yz},
+        u_{yt}, u_{yy}, u_{tt})=0
+    \end{eqnarray*}
+\end{definition}
+
+\begin{definition}
+    {Порядок УЧП}
+    {Порядок УЧП}
+    наибольший порядок частной производной, входящей в это уравнение
+\end{definition}
+
+\begin{definition}
+    {Отличия решений УМФ от решений ОДУ}
+    {Отличия решений УМФ от решений ОДУ}
+    Общее решение ОДУ содержит \textit{произвольные постоянные}, общее
+    решение уравнения УМФ содержит произвольные функции.
+\end{definition}
+
+\begin{definition}
+    {Линейное УЧП}
+    {Линейное УЧП}
+    неизвестная функция и все ее частные производные входят линейным
+    образом, то есть уравнение образовано суммой слагаемых, в каждое из
+    которых искомая функция и ее производные входят в первой степени и в
+    которых (слагаемых) отсутствуют произведения искомой функции и ее
+    производных или произведение производных
+\end{definition}
+
+\begin{definition}
+    {Квазилинейное УЧП}
+    {Квазилинейное УЧП}
+    ур-е линейное относительно старших производных
+\end{definition}
+
+\begin{definition}
+    {Однородное УЧП}
+    {Однородное УЧП}
+    правая часть ($f(x,y,z,t)$) тождественно равна нулю.
+    \textit{Неоднородная} в противном случае
+\end{definition}
+
+\begin{definition}
+    {Общее решение}
+    {Общее решение}
+    хз
+\end{definition}
+
+\begin{definition}
+    {Общий интеграл}
+    {Общий интеграл}
+    хз
+\end{definition}
+
+\section{Характеристическое уравнение для линейного УМФ второго
+    порядка, характеристики, классификация УМФ}
+
+\section{Приведение УМФ 2-го порядка к каноническому виду, условие
+приведения}
+\subsection{Приведение УМФ 2-го порядка к каноническому виду}
+Задача: найти новые переменные $\xi$ и $\eta$, связанные со старыми $x$
+и $y$ соотношениями
+\begin{eqnarray*}
+    \xi=\varphi(x,y),\ \ \eta=\psi(x,y)
+\end{eqnarray*}
+Далее сделаем замену в уравнении (для этого порадобиться вычислить новые
+частные производные)
+\begin{eqnarray*}
+    u_{x}=u_{\xi}\xi_{x}+u_{\eta}\eta_{x}
+    ,\ \ u_{y}=u_{\xi}\xi_{y}+u_{\eta}\eta_{y}\\
+    \ldots
+\end{eqnarray*}
+
+
+\subsection{Условие приведения}
+Функции перехода должны быть непрерывны вместе со своими частными
+производными до второго порядка включительно по переменным $x$ и $y$. Якобиан
+должен быть отличен от нуля (обеспечивает существование обратного преобразования)
+
+\section{Уравнение теплопроводности}
+\textbf{Уравнение теплопроводности}:
+\begin{eqnarray*}
+    \frac{\partial}{\partial x}\left(k\frac{\partial u}{\partial x}\right)
+    + F(x,t)=c\rho\frac{\partial u}{\partial t}
+\end{eqnarray*}
+\begin{enumerate}
+    \itemsep0em
+    \item Закон Фурье. Если температура тела неравномерна, то в нем
+        возникают тепловые потоки, направленные из мест с более высокой
+        температурой в места с более низкой температурой;
+    \item Внутри стержня может возникать или поглощаться тепло;
+    \item Количество тепла, которое необходимо сообщить однородному
+        телу, чтобы повысить его температуру на $\Delta u$.
+\end{enumerate}
+
+Неокторые частные случаи:
+\begin{enumerate}
+    \itemsep0em
+    \item Если \textit{стержень однороден}, то $k,c,\rho = const$, поэтому
+        уравнение записывают в виде
+        \begin{eqnarray*}
+            u_{t}=a^{2}u_{xx}+f(x,t),
+        \end{eqnarray*}
+        где $a^{2}=\frac{k}{c\rho}$, $f(x,t)=\frac{F(x,t)}{c\rho}$
+    \item Плотность тепловых источников может записеть от температуры
+        окружающей среды:
+        \begin{eqnarray*}
+            F=F_{1}(x,t)-h(u-\theta)
+        \end{eqnarray*}
+        Если \textit{стержень однороден}, то уравнение теплопроводности с \textit{боковым
+        теплообменом} имеет следующий вид:
+        \begin{eqnarray*}
+            u_{t}=a^{2}u_{xx}-au+f(x,t)
+        \end{eqnarray*}
+        где $a=\frac{h}{c\rho}$,
+        $f(x,t)=a\theta(x,t)+\frac{F_{1}(x,t)}{c\rho}$
+    \item Теплообномена с окружающей средой нет, то ур-е будет в виде:
+        \begin{eqnarray*}
+            u_{t}=a^{2}u_{xx}
+        \end{eqnarray*}
+\end{enumerate}
+
+\section{Задача Коши о распределении температуры на бесконечной прямой}
+\textit{Формулировка:} найти решение уравнения теплопроводности в области
+$-\infty < x < \infty$ и $t \geqslant t_{0}$, удовлетворяющее условию
+\begin{eqnarray*}
+    u(x,t_{0})=\varphi(x)\ \ (-\infty < x < +\infty)
+\end{eqnarray*}
+где $\varphi(x)$ - заданная функция
+
+\section{Первая краевая задача для полубесконечного стержня}
+\textit{Формулировка:} найти решение уравнения теплопроводности в области $0 < x
+< \infty$ и $t \geqslant t_{0}$, удовлетворяющее условиям
+\begin{eqnarray*}
+    u(x,t_{0}) & = & \varphi(x)\ \ (0 < x < \infty)\\
+    u(0,t) & = & \mu(t)\ \ (t \geqslant t_{0})
+\end{eqnarray*}
+где $\varphi(x)$ и $\mu(t)$ - заданные функции
+
+\section{Краевые задачи без начальных условий}
+Формулировка: найти решение теплопроводности для $0 \leqslant x
+\leqslant l$ и $-\infty < t$, удовлетворяющее условиям ($\mu$ - заданная
+функция):
+\begin{eqnarray*}
+    u(0,t) & = & \mu_{1}(t),\\
+    u(l,t) &=&\mu_{2}(t).
+\end{eqnarray*}
+для полубесконечного стержня
+\begin{eqnarray*}
+    u(0,t)=\mu(t)
+\end{eqnarray*}
+
+
+\section{Первая краевая задача для ограниченной области}
+Решение первой краевой задачи - ф-ция $u(x,t)$, обладающая св-вами:
+\begin{enumerate}
+    \itemsep0em
+    \item $u(x,t)$ - определена и непрерывна в замкнутой области
+        \begin{eqnarray*}
+            0\leqslant x\leqslant l,\ \ t_{0}\leqslant t\leqslant T;
+        \end{eqnarray*}
+    \item $u(x,t)$ удовлетворяет уравнению теплопроводности в открытой
+        области:
+        \begin{eqnarray*}
+            0<x<l,\ \ t_{0}<t<T;
+        \end{eqnarray*}
+    \item $u(x,t)$ удовлетворяет начальному и граничным условиям, т.е.:
+        \begin{eqnarray*}
+            u(x,t_{0})=\varphi(x),
+            \ \ u(0,t)=\mu_{1}(t),
+            \ \ u(l,t)=\mu_{2}(t)
+        \end{eqnarray*}
+        где $\varphi(x)$, $\mu_{1}(t)$, $\mu_{2}(t)$ - непрерывные
+        ф-ции, удовлетворяющие условиям сопряжения:
+        \begin{eqnarray*}
+            \varphi(0)=\mu_{1}(t_{0})\ \ \left[=u(0,t_{0})\right]
+            \ \ \textmd{и}
+            \ \ \varphi(l)=\mu_{2}(t_{0})\ \ \left[=u(l,t_{0})\right]
+        \end{eqnarray*}
+\end{enumerate}
+
+\section{Принцип максимального значения}
+Будем рассматривать уравнение с постоянными коэффициентами
+\begin{eqnarray*}
+    v_{t}=a^{2}v_{xx}+\beta v_{x}+\gamma v
+\end{eqnarray*}
+которое подстановкой
+\begin{eqnarray*}
+    v=e^{\mu x + \lambda t}\cdot u\ \ \textmd{при}
+    \ \ \mu=-\frac{\beta}{2a^{2}},
+    \ \ \lambda=\gamma-\frac{\beta^{2}}{4a^{2}}
+\end{eqnarray*}
+приводится к виду
+\begin{eqnarray*}
+    u_{t}=a^{2}u_{xx}
+\end{eqnarray*}
+
+\index{Теорема о принципе максимального значения}
+\textit{Формулировка:} Если функция $u(x,t)$, определенная и непрерывная
+в замкнутой области $0\leqslant t \leqslant T$ и $0\leqslant x \leqslant
+l$, удовлетворяет уравнению теплопроводности
+\begin{eqnarray*}
+    u_{t}=a^{2}u_{xx}
+\end{eqnarray*}
+в точках области $0 < x < l$, $0 < t \leqslant T$, то максимальное и
+минимальное значения функции $u(x,t)$ достигаются или в начальный
+момент, или в точке границы $x=0$ либо $x=l$
+\par Физический смысл: если температура на границе и в начальный момент
+не превосходит некоторого значения $M$, то при отсутствии источников
+внутри тела не может создаваться температура, большая $M$
+
+\section{Теорема единственности (следствие из принципа максимального
+значения)}
+\index{Следствия из принципа максимального значения}
+Формулировка: если две функции $u_{1}(x,t)$ и $u_{2}(x,t)$, определенные
+и непрерывные в области $0\leqslant x\leqslant l$, $0\leqslant
+t\leqslant T$, удовлетворяют уравнению теплопроводности:
+\begin{eqnarray*}
+    u_{t}=a^{2}u_{xx}+f(x,t)\ \ (\textmd{для}\ 0<x<l,\ t> 0)
+\end{eqnarray*}
+одинаковым начальным и краничным условиям:
+\begin{eqnarray*}
+    u_{1}(x,0)=u_{2}(x,0)=\varphi(x),
+    u_{1}(0,t)=u_{2}(0,t)=\varphi(x),
+    u_{1}(l,t)=u_{2}(l,t)=\varphi(x),
+\end{eqnarray*}
+то $u_{1}(x,t)\equiv u_{2}(x,t)$
+\begin{center}
+    Доказательство единственности решения (\textit{стр 206 Тихонов})
+\end{center}
+Пусть функция $v(x,t)$ - разность $u_{1}$ и $u_{2}$. Отсюда знаем что
+$v(x,t)$ - решение однородного уравнения теплопроводности в этой
+области. Значить \textit{принцип максимального значения} применим к этой
+функции. Значин максимальное значение достигается либо при $t=0$, либо
+при $x=0$, либо при $x=l$, но по условию имеем:
+\begin{eqnarray*}
+    v(x,0)=0,\ \ v(0,t)=0,\ \ v(l,t)=0
+\end{eqnarray*}
+отсюда \begin{eqnarray*}
+    v(x,t)\equiv 0
+\end{eqnarray*}
+
+\begin{enumerate}
+    \itemsep0em
+    \item Если два решенеия уравнения теплопроводности $u_{1}(x,t)$ и
+        $u_{2}(x,t)$ удовлетворяют условиям
+        \begin{eqnarray*}
+            &u_{1}(x,0)\leqslant u_{2}(x,0),\\
+            &u_{1}(0,t)\leqslant u_{2}(0,t),
+            \ \ u_{1}(l,t)\leqslant u_{2}(l,t)
+        \end{eqnarray*}
+        то
+        \begin{eqnarray*}
+            u_{1}(x,t)\leqslant u_{2}(x,t)
+        \end{eqnarray*}
+        для всех значений $0\leqslant x \leqslant l$, $0\leqslant
+        t\leqslant T$
+    \item Если три решения ур-я теплопроводности:
+        \begin{eqnarray*}
+            u(x,t), \underline{u}(x,t) , \overline{u}(x,t)
+        \end{eqnarray*}
+        удовлетворяют условиям
+        \begin{eqnarray*}
+            \underline{u}(x,t)\leqslant u(x,t)\leqslant
+            \overline{u}(x,t)
+            \ \ \textmd{при}\ \ t=0,\ \ x=0,\ \ x=l
+        \end{eqnarray*}
+        то эти же неравенства выполняются тождественно, т.е. для всех
+        $x$, $t$ из области $0\leqslant x\leqslant l$, $0\leqslant
+        t\leqslant T$
+    \item Если для двух решений ур-я теплопроводности $u_{1}(x,t)$ и
+        $u_{2}(x,t)$ имеет место нер-во
+        \begin{eqnarray*}
+            \left|u_{1}(x,t)-u_{2}(x,t)\right|\leqslant \varepsilon
+            \ \ \textmd{для}\ \ t=0,\ \ x=0,\ \ x=l
+        \end{eqnarray*}
+        то оно тождественно, т.е. имеет место для всех $x$, $t$ из
+        области $0\leqslant x\leqslant l$, $0\leqslant t\leqslant T$
+\end{enumerate}
+
+\section{Теорема единственности для бесконечной прямой}
+\textit{Формулировка:} Если $u_{1}(x,t)$ и $u_{2}(x,t)$ - непрерывные,
+ограниченные во всей области изменения переменных $(x,t)$ функции,
+удовлетворяющие уравнению теплопроводности:
+\begin{eqnarray*}
+    u_{2}=a^{2}u_{xx}\ \ (-\infty < x < +\infty,\ t\geqslant 0)
+\end{eqnarray*}
+и условию
+\begin{eqnarray*}
+    u_{1}(x,0)=u_{2}(x,0)\ \ (-\infty<x<+\infty)
+\end{eqnarray*}
+то
+\begin{eqnarray*}
+    u_{1}(x,t)\equiv u_{2}(x,t)\ \ (-\infty<x<+\infty,\ t\geqslant 0)
+\end{eqnarray*}
+
+\section{Задача Штурма-Лиувилля}
+
+\section{Метод разделения переменных}
+\subsection{Однородная краевая задача}
+\begin{eqnarray*}
+    u_{t}=a^{2}u_{xx}+f(x,t)
+\end{eqnarray*}
+с начальным условием
+\begin{eqnarray*}
+    u(x,0)=\varphi(x)
+\end{eqnarray*}
+и граничными условиями
+\[
+\left.
+    \begin{array}{c}
+        u(0,t)=\mu_{1}(t),\\
+        u(l,t)=\mu_{2}(t)
+    \end{array}
+\right\}\ \ (t\geqslant 0)
+\]
+\begin{center}
+    \textbf{\textit{Решаем вспомогательную задачу}}
+\end{center}
+
+Для начала найдем непрерывное в замкнутой области ($0\leqslant
+x\leqslant l$, $0\leqslant t\leqslant T$) решение однородного уравнения
+\begin{eqnarray*}
+    u_{t}=a^{2}u_{xx},\ \ 0<x<l,\ \ 0<t\leqslant T
+\end{eqnarray*}
+удовлетворяющее начальному условию
+\begin{eqnarray*}
+    u(x,0)=\varphi(x),\ \ 0\leqslant x\leqslant l
+\end{eqnarray*}
+и однородным граничным условиям
+\begin{eqnarray*}
+    u(0,t)=0,\ \ u(l,t)=0\ \ 0\leqslant t\leqslant T
+\end{eqnarray*}
+это решение не дождественно равно нулю, и представимо в виде:
+\begin{eqnarray*}
+    u(x,t)=X(x)T(t)
+\end{eqnarray*}
+
+
+
+\end{document}
