@@ -1,0 +1,89 @@
+
+%Russian-specific packages
+%--------------------------------------
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+%--------------------------------------
+
+%Hyphenation rules
+%--------------------------------------
+\usepackage{hyphenat}
+\hyphenation{ма-те-ма-ти-ка вос-ста-нав-ли-вать}
+%--------------------------------------
+
+\setlength{\parindent}{0em} % space before par
+\setlength{\parskip}{1em}   % spacing between pars
+
+\usepackage{enumitem} % configure lists
+% \setlist{noitemsep,topsep=0pt} % separation
+\setlist{nosep} % separation
+\setlist[itemize,1]{label=$\triangleleft$} % triangles looking to the left
+
+% margin from paper borders
+\usepackage[margin={0.8in, 0.3in}]{geometry}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+% 1 - Name
+% 2 - Goes to the index
+% 3 - Definition
+% internal - some text about teorem
+% \newenvironment{theorem}[3]{
+% beginning
+%     \vspace{0.5\parindent}
+%     \par\index{#2}\emph{\underline{Th.} \textbf{#1} #3.}  % teorem's name
+%     \par
+% }{
+% ending
+    % \vspace{0.2\parindent}
+% }
+
+% 1 - Name
+% 2 - Goes to index
+% internal - Name's definition
+\newenvironment{mydef}[2]{
+% beginning
+    \vspace{0.5\parindent}
+    \par \index{#2} \emph{\underline{Def.} \textbf{#1}} -
+}{
+% ending
+    \vspace{0.2\parindent}
+}
+
+% TODO
+% \newcommand{hidefinition}
+
+% 1 - Name
+% 2 - Given
+% 3 - Task
+% internal - solution
+\newenvironment{example}[3]{
+    \vspace{0.5\parindent}
+    \par\emph{\underline{Ex.}} #1
+    \par \textbf{Given:} #2
+    \par \textbf{Find:} #3
+    \par \textbf{Solution:}
+}{
+    \vspace{0.5\parindent}
+}
+
+% displaystyle в каждом мас моде
+\everymath{\displaystyle}
+
+% TODO: command for drawing box around text (so I can see why some artifact are
+
+% TODO:
+% \newcommand{grad}
+
+% indent first line after section
+\usepackage{indentfirst}
+
+\usepackage{makeidx}
+\makeindex
+
+% keep this in the very bottom
+% \usepackage[pdftex]{hyperref}
+% remove red boxes around links
+\usepackage[pdftex,pdfborderstyle={/S/U/W 0}]{hyperref} % this disables the boxes around links

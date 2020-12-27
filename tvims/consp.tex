@@ -348,7 +348,45 @@
 $F_{\xi}(x)
 =\Phi\left(\frac{x-m}{\sigma}\right)
 =\frac{1}{2}+\Phi_{0}\left(\frac{x-m}{\sigma}\right)$
-\par Пример
+\par Доверительный интервал $x \sim N(\theta,10^{2})$
+\begin{eqnarray*}
+    P\left(
+    \overline{X}_{n}-\frac{u_{1-\frac{\alpha}{2}}\sigma}{\sqrt{n}}
+    \leqslant \theta \leqslant
+    \overline{X}_{n}+\frac{u_{1-\frac{\alpha}{2}}\sigma}{\sqrt{n}}\right)
+    = 1 - \alpha
+\end{eqnarray*}
+где $1-\alpha$ - уровень надежности, $\alpha$ - уровень значимости (по
+умолчанию: $0.05$)
+\par Доверительный интервал $x \sim N(\theta_{1},\theta_{2})$
+\begin{eqnarray*}
+    P\left(
+        \frac{n\overline{S}^{2}_{n}}{k_{1-\frac{\alpha}{2},n-1}}
+        \leqslant \theta_{2} \leqslant
+        \frac{n\overline{S}^{2}_{n}}{k_{\frac{\alpha}{2},n-1}}
+    \right) = 1 - \alpha
+\end{eqnarray*}
+где $k_{1-\frac{\alpha}{2},n-1}$ и $k_{\frac{\alpha}{2},n-1}$ - квантили
+распределения $\chi^{2}$ (хи-квадрат)
+\begin{eqnarray*}
+    P\left(
+        \overline{X}_{n}-\frac{t_{1 -\frac{\alpha}{2},n-1} \overline{S}_{n}}{\sqrt{n-1}}
+        \leqslant \theta_{1} \leqslant
+        \overline{X}_{n}+\frac{t_{1-\frac{\alpha}{2},n-1}\overline{S}_{n}}{\sqrt{n-1}}
+    \right) = 1 - \alpha
+\end{eqnarray*}
+где $t$ - квантиль Стьюдента.
+\par Доверительный интервал $x\sim N(m,\theta)$:
+\begin{eqnarray*}
+    P\left(
+        \frac{\sum\limits_{i=1}^{n}(x_{i}-m)^{2}}{k_{1-\frac{\alpha}{2},n}}
+        \leqslant \theta \leqslant
+        \frac{\sum\limits_{i=1}^{n}(x_{i}-m)^{2}}{k_{\frac{\alpha}{2},n}}
+    \right) = 1 - \alpha
+\end{eqnarray*}
+
+
+
 
 \newpage
 \section{Случайные векторы}
@@ -632,7 +670,7 @@ $\nu_{r}$ для всех $r\leqslant m$. Алгоритм:
         p(X=x_{i},\theta)$
 \end{enumerate}
 
-Несмещённая оценка $\widehat{\theta}_{n}$ назыв\textbf{ается эффективной},
+Несмещённая оценка $\widehat{\theta}_{n}$ называется \textbf{эффективной},
 если
 \begin{eqnarray*}
     \M \left[\left(\widehat{\theta}_{n}-\theta\right)^{2}\right]
@@ -640,5 +678,56 @@ $\nu_{r}$ для всех $r\leqslant m$. Алгоритм:
 \end{eqnarray*}
 (должны быть выполнены условия регулярности)
 
+\section{Доверительные интервалы}
+Бывают \textit{односторонние} и \textit{двусторонние} доверительные
+интервалы.
+
+\subsection{Двусторонние}
+\par Как находить квантиль какого либо уровня: вычитаем из индекса
+уровня $\frac{1}{2}$. Ищем это значение на перечении в таблице значений
+$\Phi_{0}$. Значение на проекции на осях и будет ответом.
+
+\subsection{Односторонние}
+
+\subsection{Асимптотические доверительные интервалы}
+Если
+\begin{eqnarray*}
+    \sqrt{n}\left(\widehat{\theta}_{n}-\theta\right)
+    \stackrel{\textmd{d}}{\to }
+    u \sim N(0;d(\theta)),\ \ n \to\infty
+\end{eqnarray*}
+где $d(\theta)$ - асимптотическая дисперсия оценки
+$\widehat{\theta}_{n}$
+
+\par Если $d(\theta)$ непрерывна по $\theta \in \Theta$, то:
+\begin{eqnarray*}
+    P\left(
+        \widehat{\theta}_{n}-u_{1-\frac{\alpha}{2}}
+        \sqrt{\frac{d(\widehat{\theta}_{n})}{n}}
+        \leqslant \theta \leqslant
+        \widehat{\theta}_{n}+u_{1-\frac{\alpha}{2}}
+        \sqrt{\frac{d(\widehat{\theta}_{n})}{n}}
+    \right)
+    \to = 1 - \alpha
+\end{eqnarray*}
+
+\begin{enumerate}
+    \itemsep0em
+    \item Сначала нужна оценка неизвестного параметра
+    \item Доказать что выполняется свойство
+        \begin{eqnarray*}
+            \sqrt{n}\left(\widehat{\theta}_{n}-\theta\right)
+            \stackrel{\textmd{d}}{\to }
+            u \sim N(0;d(\theta)),\ \ n \to\infty
+        \end{eqnarray*}
+    \item Скорее всего выполняется центральна предельная теорема.
+    \item Проверяем некоторые свойства если это МП оценка
+    \item Подставляем нашу оценку в теорему выше.
+\end{enumerate}
+
+\par Квантили смотрим в конце учебника Панков Платонов или Кибзуна.
+
+\section{Метод наименьших квадратов}
+Учимся прогнозировать $y$ по $x$
 
 \end{document}
