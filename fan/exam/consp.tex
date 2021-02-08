@@ -1,0 +1,1228 @@
+\documentclass{article}[12pt]
+
+\input{preambule/main.tex}
+
+% TODO: написать неравенство минковского
+
+\renewcommand{\d}{\,\mathrm{d}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\sign}{\textmd{sign}\,}
+
+% \usepackage[upint]{stix}    % straight int
+\usepackage[integrals]{wasysym}
+% \setmathfont[StylisticSet=8]{XITS Math}
+
+\begin{document}
+
+\tableofcontents
+\pagebreak
+\printindex
+\pagebreak
+
+\section{Вычисление меры множества.}
+При вычислении меры мн-ва $A$ пользуемся неравенством:
+\begin{displaymath}
+    0 \leqslant \mu(A) \leqslant \sum\limits_{n=1}^{\infty}A_{n}
+\end{displaymath}
+где $A_{n}$ - элемент покрытия множества. Таким образом, чтобы решить
+задачу, мы придумываем покрытие нашего множества, которое должно либо
+сходится к числу (как например мера прямоугольнка в плоскости - его
+площадь), либо сходится к нулю, как мера прямой в плоскости, либо
+сходится к бесконечности (в задачах обычно означает что неправильно
+построил покрытие)
+\par \textit{Пример.} Рассмотрим меру бесконечной биссектрисы на
+плоскости. Введем следующее покрытие: до единицы покрываем биссектрису
+квадратами со стороной $\frac{1}{n}$, до двойки покрываем биссектрису
+квадратами $\frac{1}{n^{2}}$. Таким образом, мера биссектрисы будет
+ограниченна
+\begin{displaymath}
+    0 \leqslant \mu(A) \leqslant
+    \lim\limits_{n\rightarrow \infty}\sum\limits_{i=1}^{\infty}\frac{1}{n^{i}}
+\end{displaymath}
+(в пределе мы уменьшаем размер квадратов) выражение под пределом представляет
+собой бесконечно убывающую геометрическую прогрессию
+\begin{displaymath}
+    0 \leqslant \mu(A) \leqslant \lim\limits_{n\rightarrow
+    \infty}\frac{1}{n-1}
+\end{displaymath}
+отсюда следует что
+\begin{displaymath}
+    \mu(A)=0
+\end{displaymath}
+\section{Вычисление интеграла.}
+\subsection{Интеграл Лебега}
+Если функция $f$ простая - разбиваем пространство на подпространства,
+где подынтегральная функция принимает фиксированное значение.
+
+\par \textit{Формальное определение}
+\begin{displaymath}
+    \int\limits_{A}f(x)d\mu=\sum\limits_{i=1}^{\infty}y_{i}\mu(A_{i})
+\end{displaymath}
+где $y_{i}$ - значение функции на выбранном интервале, $\mu(A_{i})$ -
+мера выбранного интервала.
+
+\paragraph{Пример. 1}
+\begin{displaymath}
+    \int\limits_{[-2;+\infty)}2^{-[x]}dx
+    =\mu{[-2;-1)}\cdot2^{2} + \mu{[-1;0)}\cdot2^{1}
+    + \sum\limits_{n=0}^{\infty}\mu{[n;n+1)}\cdot 2^{-n}
+    =4 + 2 + \sum\limits_{n=0}^{\infty}\frac{1}{2^{n}}
+    =7 + \sum\limits_{n=1}^{\infty}\frac{1}{2^{n}}
+\end{displaymath}
+Вычисляем сумму бесконечно убывающей геометрической прогрессии
+\begin{displaymath}
+    \int\limits_{[-2;+\infty)}2^{-[x]}dx
+    = 7 + \frac{\frac{1}{2}}{1-\frac{1}{2}}=8
+\end{displaymath}
+
+\paragraph{Советы.} При решении задач с \textit{Канторовой лестницей} полезно знать,
+что:
+\begin{itemize}
+    \item $A_{nk}=\left(\frac{3^{k}-2}{3^{n}};\frac{3^{k}-1}{3^{n}}\right)$
+    \item $x_{0}\in A_{nk} \Rightarrow C(x_{0})=\frac{2k-1}{2^{n}}$
+    \item $\mu(A_{nk})=\frac{1}{3^{n}}$
+    \item $n=1..\infty,\ k=1..2^{n-1}$
+\end{itemize}
+
+\subsection{Интеграл Лебега-Стилтьеса}
+Мера вычисляется по следующим правилам:
+\begin{itemize}
+    \item Для отрезка: $\mu_{F}[a,b)=F(b)-F(a)$
+    \item Для точки: $\mu(\{c\})=F(c+0)-F(c)$
+        \subitem Если в т. $c$ нет разрыва, то $\mu(\{c\})=0$
+\end{itemize}
+\par Интеграл формально
+\begin{displaymath}
+    \int\limits_{A}x(t)d\mu_{F}=\int\limits_{A}x(t)dF(t)
+\end{displaymath}
+
+\par \textit{Функция Хевисайда}\index{Функция Хевисайда} $\chi(t)$
+\begin{displaymath}
+    \chi(t)=\left\{\begin{array}{ll}
+    0, & t \leqslant 0 \\
+    1, & t > 0
+    \end{array}\right.
+\end{displaymath}
+
+\paragraph{Пример. 1} Вычислить
+$\int\limits_{R}x(t)d_{\chi(t-a)}=\int\limits_{R}x(t)d\chi(t-a)$
+\par Решение:
+\begin{eqnarray*}
+&&\int\limits_{R}x(t)d\chi(t-a)\stackrel{\text{разбиваем в точке разрыва на области}}{=}
+\\&&=\int\limits_{(-\infty;a)}x(t)d\chi(t-a)+\int\limits_{\{a\}}x(t)d\chi(t-a)
++\int\limits_{(a;+\infty)}x(t)d\chi(t-a)
+\end{eqnarray*}
+Первое слагаемое:
+\begin{displaymath}
+    \mu_{\chi}(-\infty,a)=\chi(a-a)-\chi(-\infty)=\chi(0)-\chi(-\infty)=0
+\end{displaymath}
+Третье слагаемое:
+\begin{displaymath}
+    \mu_{\chi}(a,+\infty)=\chi(\infty)-\chi(a-a+0)=\chi(\infty)-\chi(0+0)=1-1=0
+\end{displaymath}
+Остается:
+\begin{eqnarray*}
+    &&\int\limits_{R}x(t)d_{\chi(t-a)}=\int\limits_{\{a\}}x(t)d\chi(t-a)=x(a)\mu_{\chi}(\{a\})
+    =\\&&=x(a)\left(\chi(a-a+0)-\chi(a-a)\right)=x(a)(1-0)=x(a)
+\end{eqnarray*}
+
+\subsection{Перестановка предела и интеграла}
+Пользуешься теоремой Лебега:
+\begin{eqnarray*}
+    \lim\limits_{n\rightarrow \infty}\int\limits_{C}f\d{g}
+    =\left|\begin{array}{l}
+        \textmd{1) }|f|\leqslant 1\ \textmd{на}\ [0,1]\\
+        \textmd{2) }\int\limits_{C}\d{g}<\infty
+    \end{array} \Rightarrow\ \textmd{т. Лебега} \right|
+    =\int\limits_{C}\lim\limits_{n\rightarrow \infty}f\d{g}
+\end{eqnarray*}
+
+\par С непрерывной функцией тоже можно осуществить предельный переход:
+\begin{eqnarray*}
+    \lim\limits_{n\rightarrow \infty}C(t^{n})=C(\lim\limits_{n\rightarrow \infty}t^{n})
+    ,\ \ t\in [0,1]
+\end{eqnarray*}
+
+
+
+\paragraph{Общие советы}
+\begin{enumerate}
+    \item Разбей на области, с границами в точках разрыва дифференциала
+    \item Ищи области в которых выражение под дифференциалом не
+        изменяется - эти области можно приравнять нулю
+\end{enumerate}
+
+\paragraph{Пример 1. Кусочная функция}
+\begin{eqnarray*}
+    \int\limits_{[0,10]}t^{2}\d{g(t)},\ \ g(t)=\left\{\begin{array}{cc}
+            t,&0\leqslant t\leqslant 1\\
+            t+3,&1< t\leqslant 4\\
+            7,&4<t\leqslant 6\\
+            t^{2},&t>6
+    \end{array} \right.
+\end{eqnarray*}
+\begin{eqnarray*}
+    &&\int\limits_{[0,10]}t^{2}\d{g(t)}=\int\limits_{[0,1)}t^{2}\d{t}
+    +\int\limits_{(1,4]}t^{2}\d{(t+3)}+\int\limits_{(4,6)}t^{2}\d{7}
+    +\int\limits_{(6,10)}t^{2}\d{t^{2}}
+    +\int\limits_{\left\{1\right\}}t^{2}\d{g}
+    +\int\limits_{\left\{6\right\}}t^{2}\d{g}=\\
+    &&=\int\limits_{0}^{1}t^{2}\d{t}+\int\limits_{1}^{4}t^{2}\d{t}
+    +\int\limits_{6}^{10}2t^{3}\d{t}
+    +1^{2}\mu_{g}\left\{1\right\}+6^{2}\mu_{g}\left\{6\right\}=\\
+    &&=\left.\frac{t^{3}}{3}\right|^{4}_{0}+\left.\frac{t^{4}}{2}\right|^{10}_{6}
+    +1(g(1+0)-g(1))+36(g(6+0)-g(6))=\\
+    &&=\frac{64}{3}+\frac{10^{4}-6^{4}}{2}+1(4-1)+36(36-7)
+\end{eqnarray*}
+\textit{точки разрыва под дифференциалом прорабатываем отдельно как интеграл Лебега-Стилтьеса}
+
+\section{Сжимающие отображения. Доказательство существования
+неподвижной точки.}
+\paragraph{Пример 1.}
+Алгоритм кратко:
+\begin{enumerate}
+    \item Определили рекурентную формулу для последовательности
+    \item Определили в каких границах лежит $x_{n}$
+    \item Определили в каких границах лежит отображение (рекурентное соотношение)
+        $f(x)=2+\frac{1}{x_{n}}$
+    \item Т.к. отображение лежит внутри исходного отрезка, это отображение сжимающее
+    \item Выбираем метрику, считаем $\rho(f(x),f(y))$ (просто подставляем значения
+        и пытаемся вывести оттуда ту же метрику, только относительно исходного отрезка)
+    \item Подсчитали неподвижную точку предельным переходом
+        $x^{*}=\lim\limits_{n\rightarrow \infty}x_{n}$
+        (подставили в рекурентное соотношение и нашли значение)
+\end{enumerate}
+
+Есть числовая последовательность
+$2;\ \ 2+\frac{1}{2};\ \ 2+\frac{1}{2+\frac{1}{2}};\ \ \ldots$. Надо определить
+является ли последовательность сходящейся. Если является - найти её предел.
+\par \textit{Решение:}
+\begin{eqnarray*}
+    &&x_{n+1}=2+\frac{1}{x_{n}},\ \ x_{1}=2,\ \ n=1,2,\ldots\\
+    &&x_{n}\geqslant 2 \Rightarrow \frac{1}{x_{n}} \leqslant \frac{1}{2}\\
+    &&2\leqslant x_{n+1}\leqslant 2+\frac{1}{2}=\frac{5}{2} \Rightarrow x_{n}\in
+    \left[2;\frac{5}{2}\right]
+\end{eqnarray*}
+\par Рассммотрим отображение $f(x)=2+\frac{1}{x}$ на отрезке $x\in [2;\frac{5}{2}] \Rightarrow $
+\begin{eqnarray*}
+&\frac{2}{5}\leqslant \frac{1}{x} \leqslant \frac{1}{2}
+\Rightarrow 2+\frac{2}{5}\leqslant 2+\frac{1}{x}\leqslant 2+\frac{1}{2}\Rightarrow\\
+&\Rightarrow \frac{12}{5}\leqslant f(x)\leqslant \frac{5}{2}
+\end{eqnarray*}
+Полученный отрезок находится внутри исходного отрезка:
+\begin{eqnarray*}
+    \left[\frac{12}{5},\frac{5}{2}\right]\subset\left[2;\frac{5}{2}\right]
+    \Rightarrow f(x)\textmd{ отображает } \left[2;\frac{5}{2}\right]\textmd{ в себя.}
+\end{eqnarray*}
+Можно проверить является ли отображение сжимающим:
+\begin{eqnarray*}
+    \rho(f(x),f(y))\leqslant \alpha\cdot\rho(x,y),\ (\alpha\alpha<1)
+\end{eqnarray*}
+\par Нужно определить метрику: $\R$, $\rho(a,b)=|a-b|$. Таким образом
+\begin{eqnarray*}
+    &\rho(f(x),f(y))&=\big|f(x)-f(y)\big|=\Bigg|2+\frac{1}{x}-\Big(2+\frac{1}{y}\Big)\Bigg|=\\
+    &&=\Big|\frac{1}{x}-\frac{1}{y}\Big|=\Big|\frac{y-x}{xy}\Big|
+    =\frac{|x-y|}{|x|\cdot|y|}=\\
+    &&=\frac{1}{|x|\cdot|y|}\cdot\rho(x,y)\leqslant
+\end{eqnarray*}
+Вспоминаем в каких пределах у нас $\frac{1}{x} \Big(\frac{1}{x}\leqslant \frac{1}{2}\Big)$
+\begin{eqnarray*}
+    \leqslant \frac{1}{4}\cdot \rho(x,y)
+\end{eqnarray*}
+$\Rightarrow $ отображение сжимающее (пр-во полное) $\Rightarrow $ отображение
+имеет единственную неподвижную точку:
+\begin{eqnarray*}
+    x^{*}=\lim\limits_{n\rightarrow \infty}x_{n},\ \textmd{где}\ x_{n}=f(x_{n-1})
+\end{eqnarray*}
+вспоминаем что
+\begin{eqnarray*}
+    x_{n+1}=2+\frac{1}{x_{n}}
+\end{eqnarray*}
+Переходим к пределу
+\begin{eqnarray*}
+    &&x^{*}=2+\frac{1}{x^{*}}\\
+    &&x^{*}=1\pm\sqrt{2}\\
+    &&2\leqslant 1+\sqrt{2}\leqslant \frac{5}{2}
+\end{eqnarray*}
+$\Rightarrow $ посл-ть сходится к точке $x^{*}=1+\sqrt{2}$
+
+\paragraph{Пример 2.}
+Отображение задано следующим образом:
+\begin{eqnarray*}
+    f:\ C[0,1]\ \to\ C[0,1]\\
+    f(x)=\frac{5}{6}t+\frac{1}{2}\int\limits_{0}^{1}t\tau x(\tau)\d{\tau}
+\end{eqnarray*}
+\par Определяем метрику: пространство $C[0,1]$, метрика
+$\rho(x,y)=\max_{0\leqslant t\leqslant 1}{|x(t)-y(t)|}$
+\par Подставляем:
+\begin{eqnarray*}
+    \rho(f(x),f(y))=\max_{0\leqslant t\leqslant 1}|f(x)-f(y)|
+    =\frac{1}{2}\max_{0\leqslant t\leqslant 1}\Big|\int\limits_{0}^{1}
+    t\tau(x(\tau)-y(\tau))\d{\tau}\Big|\leqslant
+\end{eqnarray*}
+\par Оценим модуль
+\begin{eqnarray*}
+    \leqslant \frac{1}{2}\max_{0\leqslant t\leqslant 1}\int\limits_{0}^{1}
+    |t|\cdot|\tau|\cdot|x(\tau)-y(\tau)|\d{\tau}
+\end{eqnarray*}
+\begin{itemize}
+    \item $|t|$ не зависит от подинтегрального выражение $\Rightarrow $ можем вынести
+    \item $|x(\tau)-y(\tau)|\leqslant \max_{0\leqslant\tau\leqslant 1}|x(\tau)-y(\tau)|=\rho(x,y)$ ограничено
+\end{itemize}
+Продолжаем интеграл
+\begin{eqnarray*}
+    \leqslant \frac{1}{2}\rho(x,y)\cdot\max_{0\leqslant t\leqslant 1}|t|
+    \cdot\int\limits_{0}^{1}|\tau|\d{\tau}
+    \leqslant \frac{1}{4}\rho(x,y)
+\end{eqnarray*}
+$\Rightarrow $ отображение явл. сжимающим $\Rightarrow $ существует неподвижная точка $x^{*}=\lim\limits_{n\rightarrow \infty}x_{n}$.
+\par Надо для начала построить последовательность. Возьмем в качестве начального элемента - ноль:
+\begin{eqnarray*}
+    &&x_{0}(t)=0\\
+    &&x_{1}=f(x_{0})=\frac{5}{6}t+\frac{1}{2}\int\limits_{0}^{1}t\tau\cdot
+    x_{0}(\tau)\d{\tau}=\frac{5}{6}t\\
+    &&x_{2}(t)=f(x_{1})=\frac{5}{6}t+\frac{1}{2}\int\limits_{0}^{1}t\tau
+    x_{1}(\tau)\d{\tau}=\frac{5}{6}t+\frac{1}{2}\int\limits_{0}^{1}t\tau
+    \frac{5}{6}\tau\d{\tau}
+    =\frac{5}{6}t+\frac{1}{6}\cdot\frac{5}{6}t
+    =\Big(\frac{5}{6}+\frac{5}{6^{2}}\Big)t\\
+    &&x_{3}(t)=\Big(\frac{5}{6}+\frac{5}{6^{2}}+\frac{5}{6^{3}}\Big)t\\
+    &&x_{n}(t)=\Big(\frac{5}{6}+\ldots+\frac{5}{6^{n}}\Big)t\\
+\end{eqnarray*}
+\textit{формально мы сделали так:} $x_{0}(t)=0,\ x_{1}(t)=Ax_{0},\ x_{2}=Ax_{1},\ldots$
+Получаем следующее:
+\begin{eqnarray*}
+    &&x^{*}(t)=\lim\limits_{n\rightarrow \infty}x_{n}(t)
+    =\lim\limits_{n\rightarrow \infty}
+    \left(\sum\limits_{k=1}^{n}\frac{5}{6^{n}}\cdot t\right)
+    = t\cdot 5\frac{\frac{1}{6}}{1-\frac{1}{6}}=t\\
+    &&x^{*}(t)=t
+\end{eqnarray*}
+
+\paragraph{Пример 3. ДЗ}
+Является ли отображение $f(x)=x^{2}$ сжимающим на
+\begin{enumerate}
+    \item на $\Big[0,\frac{1}{4}\Big]$
+    \item на $\Big[\frac{1}{2},+\infty\Big]$
+\end{enumerate}
+Если является, найти неподвижную точку
+
+\paragraph{Пример 4. ДЗ}
+Есть оператор $Ax=1+\frac{1}{2}\int\limits_{0}^{1}ts^{2}x(s)\d{s}$, $A:C[0,1]\to C[0,1]$.
+Является ли отображение сжимающим, если является, найти неподвижную точку
+
+\paragraph{Замечания}
+\begin{enumerate}
+    \item Если $f(x)$ - отображение сжимающее, то $x^{*}$ ищется из уравнения
+        \begin{eqnarray*}
+            f(x*)=cx^{*},\ \ (c=1)
+        \end{eqnarray*}
+    \item $f(x)$ используется для функционалов
+        \begin{eqnarray*}
+        f:\ M\ \to\ \R
+        \end{eqnarray*}
+        \textit{отображение метрического пространства на числовую прямую}
+    \item Отображение $A:\ M_{1}\ \to\ M_{2}$, $A$ - оператор (\textit{отображение из одного
+        метрического пространства, в другое})
+\end{enumerate}
+
+
+\section{Вычисление нормы линейного ограниченного функционала.}
+\subsection{Теория}
+\paragraph{Функционал}\index{Функционал} - отображение метрического
+пространства на числовую ось ($f:M\to\R$, $f$ - функционал).
+\paragraph{Линейность функционала.}\index{Линейность функционала}
+$f$ - \textbf{\textit{линеен}}, если
+\begin{eqnarray*}
+    f(\alpha x+\beta y)=\alpha f(x)+\beta f(y)
+\end{eqnarray*}
+\paragraph{Ограниченность функционала.}\index{Ограниченность функционала}
+\paragraph{Норма функционала.}\index{Норма функционала}
+\begin{eqnarray*}
+    \Vert f \Vert
+    =\sup_{x:\Vert x \Vert \leqslant 1}|f(x)|
+    =\sup_{x\neq 0}\frac{\left|f(x)\right|}{\Vert x \Vert }
+\end{eqnarray*}
+\paragraph{Норма оператора.}\index{Норма оператора}
+\begin{eqnarray*}
+    \Vert A \Vert
+    =\sup_{x:\Vert x \Vert \leqslant 1}\Vert Ax \Vert
+    =\sup_{x\neq 0}\frac{\Vert Ax \Vert}{\Vert x \Vert }
+\end{eqnarray*}
+\subsection{Примеры}
+\paragraph{Пример 1.}
+\begin{eqnarray*}
+&&f:l_{3}\to\R,\ \ x\in l_{3} \Rightarrow\ x=(x_{1},x_{2},\ldots)\\
+&&f(x)=x_{1}
+\end{eqnarray*}
+Выпишем норму икса (в пространстве $l_{3}$):
+\begin{eqnarray*}
+    \Vert x \Vert
+    =\left(\sum\limits_{i=1}^{\infty}|x_{i}|^{3}\right)^{\frac{1}{3}}
+\end{eqnarray*}
+Выпишем норму функционала:
+\begin{eqnarray*}
+    |f(x)|=|x_{1}|=\left(|x_{1}|^{3}\right)^{\frac{1}{3}}
+    \leqslant \left(|x_{1}|^{3}+|x_{2}|^{3}\right)^{\frac{1}{3}}
+    \leqslant \Vert x \Vert
+\end{eqnarray*}
+Воспользуемся вторым видом определения нормы:
+\begin{eqnarray*}
+    \Vert f \Vert =\sup_{x\neq 0}\frac{|f(x)|}{\Vert x \Vert}
+    \leqslant \sup_{x\neq 0}\frac{\Vert x \Vert}{\Vert x \Vert}=1
+\end{eqnarray*}
+\textit{оценили норму сверху единицей}
+\par Оценим норму $\Vert f \Vert$ снизу. Для этого выберем какой-то
+элемент принадлежащий $l_{3}$: $x_{0}\in l_{3}$, пусть
+$x_{0}=(1,0,\ldots)$. Тогда норма этого элемента $\Vert x_{0} \Vert =1$.
+Находим значение модуля функционала: $|f(x_{0})|=1$
+\begin{eqnarray*}
+    \forall x\neq 0 \Rightarrow \sup_{x\neq 0}\frac{|f(x)|}{\Vert x \Vert}
+    \geqslant \frac{|f(x_{0})|}{\Vert x_{0} \Vert}=1
+\end{eqnarray*}
+Сравнимаем оценки сверху и снизу:
+\begin{eqnarray*}
+1\leqslant \Vert f \Vert \leqslant 1
+\Rightarrow\ \Vert f \Vert =1
+\end{eqnarray*}
+
+\paragraph{Пример 2.}
+\begin{eqnarray*}
+    &&f:C[0,1]\to\R\\
+    &&f(x)=\int\limits_{0}^{1}x(t)\d{t},\ \ \ \Vert f \Vert\ -\ ?
+\end{eqnarray*}
+Общий алгоритм:
+\begin{enumerate}
+    \item Находим норму метрического пространства
+    \item Находим модуль функционала
+        \subitem Пытаемся затем оценить его (различные сомножители можно
+        оценить числом, либо выделить где-нибудь норму по иксу)
+        \subitem Ограничивая сверху, пытаемся привести к норме
+        метрического пространства (скорее всего надо будет добавить
+        члены от которых выражение точно меньше не станет)
+        \subitem Ограничивая снизу подбираем такой элемент, чтобы оценка
+        получилась точной
+        \subsubitem В случае пространства $l_{n}$ можно использовать
+        равенство и неравенство Гёльдера (см пример 8)
+\end{enumerate}
+
+Норма по непрерывным функциям:
+\begin{eqnarray*}
+    \Vert x \Vert =\max_{0\leqslant t\leqslant 1}|x(t)|
+\end{eqnarray*}
+Модуль функционала:
+\begin{eqnarray*}
+    |f(x)|=\left|\int\limits_{0}^{1}x(t)\d{t}\right|
+    \leqslant\int\limits_{0}^{1}|x(t)|\d{t}
+    \leqslant\int\limits_{0}^{1}\max_{0\leqslant t\leqslant 1}|x(t)|\d{t}=
+\end{eqnarray*}
+Т.к. $\max_{0\leqslant t\leqslant 1}|x(t)|$ это число - его можно
+вынести
+\begin{eqnarray*}
+    =\max_{0\leqslant t\leqslant 1}|x(t)|\cdot\int\limits_{0}^{1}dt
+    =\Vert x \Vert \Rightarrow \Vert f \Vert \leqslant 1
+\end{eqnarray*}
+\textit{ограничили сверху}
+\par Ограничим снизу. Возьмем элемент:
+\begin{eqnarray*}
+    &&x_{0}(t)\in C[0,1],\ \ x_{0}(t)=1\\
+    &&\Vert x_{0} \Vert =1\\
+    &&|f(x_{0})|=\left|\int\limits_{0}^{1}x_{0}\d{t}\right|=1
+    \Rightarrow\ \Vert f \Vert \geqslant 1
+\end{eqnarray*}
+Сравнивая оценки снизу и сверху:
+\begin{eqnarray*}
+1\leqslant \Vert f \Vert \leqslant 1
+\Rightarrow\ \ \ \Vert f \Vert =1
+\end{eqnarray*}
+
+\paragraph{Пример 3.}
+\begin{eqnarray*}
+&&f:L_{2}[0,1]\to\R\\
+&&f(x)=\int\limits_{0}^{1}x(t^{2})\d{t},\ \ \ \Vert f \Vert\ -\ ?
+\end{eqnarray*}
+\par \textbf{Решение.} Для начала преобразуем интеграл (сделаем замену
+переменных)
+\begin{eqnarray*}
+    \int\limits_{0}^{1}x(t^{2})\d{t}
+    =\left|\begin{array}{ll}
+        t^{2}=\tau & t=\sqrt{\tau}\\
+        0\leqslant\tau\leqslant 1 & \d{t}=\frac{1}{2\sqrt{\tau}\d{\tau}}
+    \end{array} \right|
+    =\int\limits_{0}^{1}x(\tau)\frac{1}{2\sqrt{\tau}}\d{\tau}
+\end{eqnarray*}
+\par Считаем модуль функционала
+% TODO: как мы тут сделали неравенство Минковского непонятно
+\begin{eqnarray*}
+    &&|f(x)|=\left|\int\limits_{0}^{1}x(\tau)\frac{1}{2\sqrt{\tau}}\d{\tau}\right|
+    \leqslant\textmd{нер-во Минковского}
+    \leqslant\left(\int\limits_{0}^{1}
+    \left|x(\tau)\right|^{2}\d{\tau}\right)^{\frac{1}{2}}\cdot
+    \left(\int\limits_{0}^{1}
+    \left|\frac{1}{2\sqrt{\tau}}\right|^{2}\d{\tau}\right)^{\frac{1}{2}}=\\
+    &&=\Vert x \Vert
+    \cdot\left(\int\limits_{0}^{1}\frac{1}{4\tau}\d{\tau}\right)^{\frac{1}{2}}
+    =\Vert x \Vert
+    \cdot\left(\left.\frac{1}{4}\ln{\tau}\right|^{1}_{0}\right)^{\frac{1}{2}}
+        =\infty
+\end{eqnarray*}
+$\Rightarrow $ функционал является неограниченным
+
+\paragraph{Пример 4. дз}
+\begin{eqnarray*}
+    f:l_{3}\to\R\ \ f(x)=x_{2020}-x_{2021}
+\end{eqnarray*}
+
+\paragraph{Пример 5. дз}
+\begin{eqnarray*}
+    f:L_{2}[0,1]\to\R\ \ f(x)=\int\limits_{0}^{1}tx(t)\d{t}
+\end{eqnarray*}
+
+\paragraph{Пример 6. дз}
+\begin{eqnarray*}
+    f:C[0,1]\to\R\ \ f(x)=x\left(\frac{1}{2}\right)+\int\limits_{0}^{1}x(t)\d{t}
+\end{eqnarray*}
+
+\paragraph{Пример 7. ($l_{1}$)}
+\begin{eqnarray*}
+    &&f(x):l_{1}\to\R\\
+    &&f(x)=\sum\limits_{k=1}^{\infty}\frac{(1-(-1)^{k})(k-1)}{k}x_{k},\ \ \
+    \Vert f \Vert\ -\ ?
+\end{eqnarray*}
+\par Записываем модуль функционала
+\begin{eqnarray*}
+    |f(x)|=\left|\sum\limits_{k=1}^{\infty}
+    \frac{(1-(-1)^{k})(k-1)}{k}x_{k}
+    \right|
+    \leqslant \sum\limits_{k=1}^{\infty}\left|(1-(-1)^{k})\right|
+    \cdot\left|\frac{k-1}{k}\right|\cdot|x_{k}|\leqslant
+\end{eqnarray*}
+первый сомножитель оцениваем сверху двойкой, второй - единицей
+\begin{eqnarray*}
+    \leqslant2\sum\limits_{k=1}^{\infty}|x_{k}|=2\Vert x \Vert
+\end{eqnarray*}
+$\Rightarrow\ \Vert f \Vert \leqslant 2\ (\Vert x \Vert \leqslant 1)$
+\par Оценим норму снизу
+\begin{eqnarray*}
+    &&x_{0}\in l_{1},\ \ \sup_{\Vert x \Vert \leqslant 1}|f(x_{0})|
+    \geqslant|f(x_{0})|\\
+    &&x_{0}=(0,\ldots,0,1,0,\ldots)\ \ \textmd{(сначала $2n$ нулей)}\\
+    &&\Vert x_{0} \Vert =1
+\end{eqnarray*}
+\par Найдем значение функционала в этой точке:
+\begin{eqnarray*}
+    |f(x_{0})|=|1-(-1)^{2n+1}|\cdot\left|\frac{2n+1-1}{2n+1}\right|\cdot 1
+    =2\cdot\left|1-\frac{1}{2n+1}\right| \stackrel{n\to\infty}{\to}2
+\end{eqnarray*}
+$\Rightarrow \Vert f \Vert \geqslant 2$
+\par Сравнивая оценки сверху и снизу
+\begin{eqnarray*}
+2\leqslant \Vert f \Vert \leqslant 2 \Rightarrow \ \ \ \Vert f \Vert =2
+\end{eqnarray*}
+
+\paragraph{Пример 8.}
+\begin{eqnarray*}
+    f:M\to\R;\ \ f(x)=3x_{1}-4x_{2}
+\end{eqnarray*}
+\begin{enumerate}
+    \item $M=l_{1}$
+        \subitem Оцениваем норму сверху
+        \begin{eqnarray*}
+            &&|f(x)|=|3x_{1}-4x_{2}|
+            \leqslant 3|x_{1}|+4|x_{2}|
+            \leqslant 4|x_{1}+4|x_{2}|=\\
+            &&=4(|x_{1}|+4|x_{2}|)
+            \leqslant 4(|x_{1}|+|x_{2}|+|x_{3}|+\ldots)
+            =4\Vert x \Vert \Rightarrow \\
+            &&\Rightarrow \Vert f \Vert \leqslant 4
+        \end{eqnarray*}
+        \subitem Ограничиваем снизу:
+        \begin{eqnarray*}
+            &&x_{0}=(0,-1,0,\ldots)\\
+            &&|f(x_{0})|=4\Rightarrow \\
+            && \Rightarrow \Vert f \Vert \geqslant 4 \Rightarrow \Vert f \Vert =4
+        \end{eqnarray*}
+    \item $M=l_{2}$
+        \subitem Оцениваем сверху
+        \begin{eqnarray*}
+            &&|f(x)|=|3x_{1}-4x_{2}|
+            \leqslant\\
+            &&\leqslant 3|x_{1}|+4|x_{2}|\leqslant\textmd{[Коши-Буняковского]}
+            \leqslant
+            (3^{2}+4^{2})^{\frac{1}{2}}(|x_{1}|^{2}+|x_{2}|^{2})^{\frac{1}{2}}=\\
+            &&= 5\left(|x_{1}|^{2}+|x_{2}|^{2}\right)^{\frac{1}{2}}
+            \leqslant 5\Vert x \Vert \Rightarrow \\
+            && \Rightarrow \Vert f \Vert \leqslant 5
+        \end{eqnarray*}
+        \subitem Оцениваем снизу
+        \begin{eqnarray*}
+            &&x_{0}=\left(\frac{3}{5},-\frac{4}{5},0,\ldots\right)\\
+            &&\Vert x_{0} \Vert =
+            \left(\frac{9}{25}+\frac{16}{25}\right)^{\frac{1}{2}}=1\leqslant
+            1\\
+            &&|f(x_{0})|=\left|3\frac{3}{5}+4\frac{4}{5}\right|=5
+            \Rightarrow\\
+            && \Rightarrow \Vert f \Vert \geqslant 5 \Rightarrow \Vert f
+            \Vert =5
+        \end{eqnarray*}
+    \item $M=l_{\infty}$
+        \subitem Норма метрики: $\Vert x \Vert =\sup_{k\in\N}|x_{k}|$
+        \subitem Оцениваем сверху:
+        \begin{eqnarray*}
+            &&|f(x)|=|3x_{1}-4x_{2}|\leqslant 3|x_{1}|+4|x_{2}|\leqslant\\
+            &&\leqslant \left[\begin{array}{c}
+                    \Vert x \Vert \leqslant 1 \Rightarrow
+                    \sup_{k}|x_{k}|\leqslant 1 \Rightarrow \\
+                    \Rightarrow \forall k\ |x_{k}|\leqslant 1
+            \end{array} \right] \leqslant 7\Vert x \Vert \Rightarrow \\
+            && \Vert f \Vert \leqslant 7
+        \end{eqnarray*}
+        \subitem Оценим норму снизу
+        \begin{eqnarray*}
+            &&x_{0}=(1,-1,0,\ldots)\\
+            &&\Vert x_{0} \Vert =1\\
+            &&|f(x_{0})|=7 \Rightarrow\ \ \Vert f \Vert \geqslant 7
+            \Rightarrow\ \ \ \Vert f \Vert =7
+        \end{eqnarray*}
+    \item $M=l_{4}$
+        \subitem Оценим сверху:
+        \begin{eqnarray*}
+            &&|f(x)|=|3x_{1}-4x_{2}|\leqslant 3|x_{1}|+4|x_{2}|\leqslant\\
+            &&\leqslant\left[\textmd{неравенство Гёльдера
+                }\begin{array}{c}
+            q=4 \Rightarrow \frac{1}{q}=\frac{1}{4} \Rightarrow \\
+            \Rightarrow \frac{1}{p}=\frac{3}{4}\Rightarrow p=\frac{4}{3}
+        \end{array} \right]\leqslant
+        \left(3^{\frac{4}{3}}+4^{\frac{4}{3}}\right)^{\frac{3}{4}}
+        \left(|x_{1}|^{4}+|x_{2}|^{4}\right)^{\frac{1}{4}}\leqslant\\
+        &&\leqslant
+        \left(3\sqrt[3]{3}+4\sqrt[3]{4}\right)^{\frac{3}{4}}\Vert x \Vert \Rightarrow \\
+        && \Rightarrow \Vert f \Vert
+        \leqslant \left(3\sqrt[3]{3}+4\sqrt[3]{4}\right)^{\frac{3}{4}}
+        \end{eqnarray*}
+
+        \subitem Оценим снизу:
+        По обращаем неравенство Гёльдера в равенство
+        \begin{eqnarray*}
+            &&b_{i}=\sign{a_{i}}\cdot|a_{i}|^{p-1}\\
+            &&a_{1}=3\ \ a_{2}=-4\ \ p=\frac{4}{3} \Rightarrow \\
+            &&b_{1}=3^{\frac{1}{3}}\ \ b_{2}=-4^{\frac{1}{3}}\\
+            &&x_{0}=\left(\sqrt[3]{3},-\sqrt[3]{4},0,\ldots\right)\\
+            &&\Vert f \Vert =\sup_{x\neq 0}\frac{|f(x)|}{\Vert x \Vert }
+            \geqslant \frac{|f(x_{0})|}{\Vert x_{0} \Vert}
+            \Rightarrow \Vert f \Vert
+            = \left(3\sqrt[3]{3}+4\sqrt[3]{4}\right)^{\frac{3}{4}}
+        \end{eqnarray*}
+\end{enumerate}
+
+\paragraph{Пример 9. дз}
+\begin{eqnarray*}
+    f:M\to\R\ \ \ f(x)=\int\limits_{-1}^{1}tx(t)\d{t}
+\end{eqnarray*}
+\begin{enumerate}
+    \item $M=L_{3}[-1,1]$
+    \item $M=C[-1,1]$
+\end{enumerate}
+
+\paragraph{Пример 9.1}
+\begin{eqnarray*}
+    &&f:C[-1,1]\to\R\\
+    &&f(x)=\int\limits_{-1}^{1}x(t)\d{t}-x(0)
+\end{eqnarray*}
+\par Ограничиваем сверху
+\begin{eqnarray*}
+    |f(x)|=\left|\int\limits_{-1}^{1}x(t)\d{t}-x(0)\right|
+    \leqslant \left|\int\limits_{-1}^{1}x(t)\d{t}\right|+|x(0)|
+    \leqslant \int\limits_{-1}^{1}|x(t)|\d{t}+|x(0)|
+    \leqslant \Vert x \Vert \left(\int\limits_{-1}^{1}+1\right)
+    =3\Vert x \Vert \Rightarrow \Vert f \Vert \leqslant 3
+    \ \ (x:\Vert x \Vert \leqslant 1)
+\end{eqnarray*}
+\par Ограничиваем снизу
+\begin{eqnarray*}
+    x_{0}\in C[-1,1] \Rightarrow \Vert f \Vert
+    =\sup_{\Vert x \Vert \leqslant 1}|f(x)|\geqslant |f(x_{0})|
+\end{eqnarray*}
+\par Возьмем последовательность функций
+\begin{eqnarray*}
+    &&x_{0n}(t)=\left\{\begin{array}{ll}
+            1,&t\in\Bigg[-1;-\frac{1}{n}\Bigg)
+            \cup\Bigg(\frac{1}{n},1\Bigg]\\
+            -2nt-1,&t\in\Bigg[-\frac{1}{n},0\Bigg)\\
+            2nt-1,&t\in\Bigg[0,\frac{1}{n}\Bigg)
+    \end{array} \right.\\
+    && \forall n\ \Vert x_{0n} \Vert =1
+    \Rightarrow x_{0n}\in {x: \Vert x \Vert \leqslant 1}\\
+    &&|f(x_{0n})=\left|\int\limits_{-1}^{1}x_{0n}(t)\d{t}-x_{0n}(0)\right|
+    =\left|\int\limits_{-1}^{-\frac{1}{n}}\d{t}
+    +\int\limits_{\frac{1}{n}}^{1}\d{t}
+    +\int\limits_{-\frac{1}{n}}^{0}(-2nt-1)\d{t}
+    +\frac{0}{\frac{1}{n}}(2nt-1)\d{t}+1\right|=\\
+    &&=\left|-\frac{1}{n}+1+1-\frac{1}{n}+(-nt^{2}-t)\Big|^{0}_{-\frac{1}{n}}+(nt^{2}-t)\Big|^{\frac{1}{n}}_{0}+1\right|=\\
+    &&=3-\frac{2}{n} \Rightarrow \Vert f \Vert \geqslant 3-\frac{2}{n}
+    \stackrel{n\to\infty}{\to} 3
+\end{eqnarray*}
+\par Сравнивая оценки сверху и снизу получим: $\Vert f \Vert = 3$
+
+\paragraph{Пример 10.}
+\begin{eqnarray*}
+&&f:C[-1,1]\to\R\\
+&&f(x)=\int\limits_{-1}^{0}x(-t)\d{t}
+-\int\limits_{0}^{1}x(t^{2})\d{t}
+\end{eqnarray*}
+\par Построим оценку сверху
+\begin{eqnarray*}
+    &&|f(x)|=\left|\int\limits_{-1}^{0}x(-t)\d{t}
+    -\int\limits_{0}^{1}x(t^{2})\d{t}\right|
+    =\left[\begin{array}{c}
+            s=-t\\t=-s\\t^{2}=\tau
+    \end{array}
+    \begin{array}{c}
+        t=\sqrt{\tau}\\\d{t}=-\d{s}
+    \end{array}
+    \begin{array}{c}
+        \d{t}=\frac{1}{2\sqrt{\tau}}\d{\tau}
+    \end{array} \right]
+    =\left|-\int\limits_{0}^{1}x(s)\d{s}
+    -\int\limits_{0}^{1}x(\tau)\frac{1}{2\sqrt{\tau}}\d{\tau}\right|\\
+    &&=\left|\int\limits_{0}^{1}
+    \left(1+\frac{1}{2\sqrt{\tau}}\right)x(\tau)\d\tau\right|
+    \leqslant\int\limits_{0}^{1}
+    \left|1+\frac{1}{2\sqrt{\tau}}\right|\cdot|x(\tau)|\d\tau
+    \leqslant \Vert x \Vert
+    \int\limits_{0}^{1}\left(1+\frac{1}{2\sqrt{\tau}}\right)\d\tau
+    =2\Vert x \Vert \Rightarrow \Vert f \Vert \leqslant 2
+\end{eqnarray*}
+\par Построим оценку снизу
+\begin{eqnarray*}
+    x_{0}\in C[-1,1]:\Vert f \Vert
+    =\sup_{\Vert x \Vert \leqslant 1}|f(x)|\geqslant |f(x_{0})|
+\end{eqnarray*}
+\par Рассмотрим ряд функций
+\begin{eqnarray*}
+    &&x_{0n}(t)=\left\{\begin{array}{ll}
+            1,&t\in\Big[-1,-\frac{1}{n}\Big)\\
+            -nt,&t\in\Big[-\frac{1}{n},\frac{1}{n}\Big]\\
+            -1,&t\in\Big(\frac{1}{n},1\Big]
+    \end{array} \right.\\
+    &&\forall n\ \Vert x_{0n} \Vert =1
+    \ \ x_{0n}\in\left\{x:\Vert x \Vert \leqslant 1\right\}\\
+    &&|f(x_{0n})|
+    =\left|\int\limits_{-1}^{-\frac{1}{n}}\d{t}
+    +\int\limits_{-\frac{1}{n}}^{0}nt\d{t}
+    +\int\limits_{0}^{\frac{1}{n}}nt^{2}\d{t}
+    +\int\limits_{\frac{1}{n}}^{1}\d{t}\right|=\\
+    &&=\left|-\frac{1}{n}+1
+    +\frac{nt^{2}}{2}\Big|_{-\frac{1}{n}}^{0}
+    +\frac{nt^{3}}{3}\Big|^{\frac{1}{n}}_{0}
+    +1-\frac{1}{n}\right|
+    =\left|2-\frac{2}{n}+0-\frac{1}{2n}+\frac{1}{3n^{2}}-0\right|=\\
+    &&=2-\frac{5}{2n}+\frac{1}{3n^{2}}\ \ (n\geqslant 2)
+    \stackrel{n\to\infty}{\to}2 \Rightarrow \Vert f \Vert \geqslant 2
+\end{eqnarray*}
+Сравнивая полученные оценки: $\Vert f \Vert =2$
+
+\paragraph{Пример 11. дз}
+\begin{eqnarray*}
+    f:L_{1}[0,1]
+    \ \ f(x)=\int\limits_{0}^{1}x(\sqrt{t})\d{t}
+\end{eqnarray*}
+
+\paragraph{Пример 12. дз}
+\begin{eqnarray*}
+    f:L_{2}[-1,1]
+    \ \ f(x)=\int\limits_{-1}^{1}tx(t)\d{t}
+\end{eqnarray*}
+
+\paragraph{Пример 13. ($\R^{n}\to l_{2}$)}
+\begin{eqnarray*}
+    &&A:\R^{n}\to l_{2}\\
+    &&A(x_{1},\ldots,x_{n})=
+    \left(\frac{x_{1}}{\sqrt{1!}},\ldots, \frac{x_{n}}{\sqrt1!},
+    \frac{x_{1}}{\sqrt{2!}},\ldots,\frac{x_{n}}{\sqrt{2!}},
+    \frac{x_{1}}{\sqrt{3!}},\ldots,\frac{x_{n}}{\sqrt{3!}},\ldots\right)
+\end{eqnarray*}
+\par Оценим норму сверху
+\begin{eqnarray*}
+    &&x\in\R^{n} \Rightarrow \Vert x \Vert =|x|
+    =(x_{1}^{2}+\ldots+x_{n}^{2})^{\frac{1}{2}}\\
+    &&Ax=y\in l_{2} \Rightarrow \Vert y \Vert =\Vert Ax \Vert
+    =\left(\sum\limits_{i=1}^{\infty}|y_{i}|^{2}\right)^{\frac{1}{2}}\\
+    &&\Vert Ax \Vert = \left(
+        \frac{x_{1}^{2}}{1!}+\ldots+\frac{x_{n}^{2}}{1!}
+        +\frac{x_{2}^{2}}{2!}+\ldots+\frac{x_{n}^{2}}{2!}
+    +\ldots \right)^{\frac{1}{2}}=\\
+    &&=\left(\frac{1}{1!}(x_{1}^{2}+\ldots+x_{n}^{2})
+    +\frac{1}{2!}(x_{1}^{2}+\ldots+x_{n}^{2})
+    +\ldots\right)^{\frac{1}{2}}
+    =\left((x_{1}^{2}+\ldots+x_{n}^{2})
+    \left(\frac{1}{1!}+\frac{1}{2!}+\ldots\right)\right)^{\frac{1}{2}}
+    =\\
+    &&=\Vert x \Vert
+    \left(\sum\limits_{k=1}^{\infty}\frac{1}{k!}\right)^{\frac{1}{2}}
+    =\textmd{(прибавили, вычли единицу)}=\sqrt{e-1}\cdot \Vert x \Vert
+    \Rightarrow \Vert A \Vert \leqslant \sqrt{e-1}
+\end{eqnarray*}
+\par Оценим норму снизу:
+\begin{eqnarray*}
+    x_{0}:\Vert x_{0} \Vert \leqslant 1
+    \Rightarrow \Vert A \Vert
+    =\sup_{\Vert x \Vert \leqslant 1}\Vert Ax \Vert
+    \geqslant \Vert Ax_{0} \Vert
+\end{eqnarray*}
+Пусть:
+\begin{eqnarray*}
+    &&x_{0}=(0,1,0,\ldots,0),\ \ (\textmd{$n-2$ ноликов следуют за
+    единицей})\\
+    &&Ax_{0} \left(
+    0,\frac{1}{\sqrt{1!}},0,\ldots,0,
+    0,\frac{1}{\sqrt{2!}},0,\ldots,0,\ldots\right)\\
+    &&\Vert Ax_{0} \Vert =\left(
+        0^{2}+\frac{1}{1!}+0^{2}+\ldots+0^{2}+
+        0^{2}+\frac{1}{2!}+0^{2}+\ldots+0^{2}+\ldots
+    \right)^{\frac{1}{2}}
+    =\left(\sum\limits_{k=1}^{\infty}\frac{1}{k!}\right)^{\frac{1}{2}}
+    =\sqrt{e-1}
+    \Rightarrow \Vert A \Vert \geqslant \sqrt{e-1}
+\end{eqnarray*}
+Сравнивая полученные оценки: $\Vert A \Vert =\sqrt{e-1}$
+
+\paragraph{Пример 14. ($C[0,1]\to C[0,1]$)}
+\begin{eqnarray*}
+    A:C[0,1]\to C[0,1]
+    \ \ Ax=\int\limits_{0}^{1}e^{3t-2\tau}x(\tau)\d\tau
+\end{eqnarray*}
+Видим что
+\begin{eqnarray*}
+    x\in C[0,1] \Rightarrow \Vert x \Vert
+    =\max_{0\leqslant t\leqslant 1}|x(t)|
+\end{eqnarray*}
+Оценим сверху:
+\begin{eqnarray*}
+&&\Vert Ax \Vert
+=\max_{0\leqslant t\leqslant 1}
+\left|\int\limits_{0}^{1}e^{3t-2\tau}x(\tau)\d\tau\right|
+\leqslant \max_{0\leqslant t\leqslant 1}e^{3t}
+\cdot\int\limits_{0}^{1}e^{-2\tau}|x(\tau)|\d\tau
+\leqslant \Vert x \Vert \cdot\max_{0\leqslant t\leqslant 1}
+e^{3t}\cdot\left(-\frac{1}{2}e^{-2\tau}\Big|^{1}_{0}\right)=\\
+&&=\Vert x \Vert \cdot\frac{1}{2}(e^{3}-e)
+\Rightarrow \Vert A \Vert \leqslant \frac{1}{2}(e^{3}-e)
+\end{eqnarray*}
+Оценим норму снизу
+\begin{eqnarray*}
+    \displaystyle
+    &&x_{0}\in C[0,1]:\Vert x_{0} \Vert \leqslant 1
+    \Rightarrow \Vert A \Vert = \sup_{\Vert x \Vert \leqslant 1}\Vert Ax \Vert
+    \geqslant \Vert Ax_{0} \Vert\\
+    &&x_{0}(t)=1\\
+    &&\Vert Ax_{0} \Vert =\max_{0\leqslant t\leqslant 1}
+    \left|\int\limits_{0}^{1}e^{3t-2\tau}\cdot 1\cdot \d\tau\right|
+    =\max_{0\leqslant t\leqslant 1}e^{3t}\cdot
+    \left|\int\limits_{0}^{1}e^{-2\tau}\d\tau\right|
+    =\max_{0\leqslant t\leqslant 1}e^{3t}\cdot
+    \left|-\frac{1}{2}e^{-2\tau}\Big|^{1}_{0}\right|
+    =\frac{1}{2}(e^{3}-e)\Rightarrow \\
+    && \Rightarrow \Vert A \Vert \geqslant \frac{1}{2}(e^{3}-e)
+\end{eqnarray*}
+Сравнивая полученные оценки: $\Vert A \Vert =\frac{1}{2}(e^{3}-e)$
+
+\paragraph{Пример 15. ($L_{2}[0,1]\to L_{2}[0,1]$)}
+\begin{eqnarray*}
+    A:L_{2}[0,1]\to L_{2}[0,1]
+    ,\ \ Ax=\int\limits_{0}^{1}tx(\tau)\d\tau
+\end{eqnarray*}
+Норма икса:
+\begin{eqnarray*}
+    x\in L_{2}[0,1] \Rightarrow
+    \Vert x \Vert =\left(\int\limits_{0}^{1}|x(t)|^{2}\d{t}\right)\frac{1}{2}
+\end{eqnarray*}
+Ограничим сверху
+\begin{eqnarray*}
+    &&\Vert Ax \Vert =
+    \left(\int\limits_{0}^{1}
+    \left|\int\limits_{0}^{1}tx(\tau)\d\tau\right|^{2}\d{t}\right)^{\frac{1}{2}}
+    =\left(\int\limits_{0}^{1}t^{2}
+    \left(\int\limits_{0}^{1}|x(\tau)|\d\tau\right)^{2}\d{t}\right)^{\frac{1}{2}}
+    =\left(\int\limits_{0}^{1}t^{2}\Vert x \Vert^{2}
+    \left(\int\limits_{0}^{1}\d\tau\right)^{2}\d{t}\right)^{\frac{1}{2}}=\\
+    &&=\Vert x \Vert
+    \cdot\left(\int\limits_{0}^{1}t^{2}\d{t}\right)^{\frac{1}{2}}
+    =\Vert x \Vert
+    \cdot\left(\frac{1}{3}t^{3}\Big|^{1}_{0}\right)^{\frac{1}{2}}
+    =\frac{1}{3}\Vert x \Vert \Rightarrow \\
+    && \Rightarrow \Vert A \Vert \leqslant \frac{1}{3}
+\end{eqnarray*}
+Оценим норму снизу
+\begin{eqnarray*}
+    &&x_{0}\in L_{2}[0,1]:\Vert x_{0} \Vert \leqslant 1
+    \Rightarrow \Vert A \Vert = \sup_{\Vert x \Vert \leqslant 1}\Vert Ax \Vert
+    \geqslant \Vert Ax_{0} \Vert\\
+    &&x_{0}(t)=\frac{2}{3}
+    ,\ \ \Vert x_{0} \Vert \leqslant 1\\
+    &&\Vert Ax_{0} \Vert =
+    \left(\left|\int\limits_{0}^{1}
+    t\frac{\sqrt{2}}{3}\d{t}\right|^{2}\right)^{\frac{1}{2}}
+    =\left(\frac{4}{9}\left(
+    \frac{t^{2}}{2}\Big|^{1}_{0}\right)^{2}\right)^{\frac{1}{2}}
+    =\frac{1}{3} \Rightarrow \Vert A \Vert \geqslant \frac{1}{3}
+\end{eqnarray*}
+Сравнивая оценки: $\Vert A \Vert =\frac{1}{3}$
+
+\section{Ортогонализация Грама-Шмидта и разложение элементов евлидова
+пространства в ряд Фурье.}
+\subsection{Теория}
+\begin{eqnarray*}
+    &&\Delta = y - \alpha x_{1}-\beta x_{2}\\
+    &&\left\{\begin{array}{l}
+    \Delta \perp x_{1} \Leftrightarrow (\Delta,x_{1})=0\\
+    \Delta \perp x_{2} \Leftrightarrow (\Delta,x_{2})=0
+    \end{array} \right.
+    \textmd{ такая система позволит найти $\alpha$ и $\beta$}\\
+    &&\left\{\begin{array}{l}
+            (\Delta,x_{1})
+            =(y,x_{1})-\alpha(x_{1}x_{1})-\beta(x_{2}x_{1})=0\\
+            (\Delta,x_{2})
+            =(y,x_{2})-\alpha(x_{1}x_{2})-\beta(x_{2}x_{2})=0
+    \end{array} \right.
+\end{eqnarray*}
+\subsection{Общий ход решения}
+\begin{enumerate}
+    \item Выписать скалярное произведение
+        \subitem Затем подсчитать необходимые скалярные произведения
+        которые входят в систему выше
+    \item Подставить подсчитанные значения в систему, решить ее
+\end{enumerate}
+
+\subsection{Примеры}
+\paragraph{Пример 1. ($L_{2}[0,1]$)}
+\begin{eqnarray*}
+    &&L_{2}[0,1]\\
+    &&x_{1}(t)=1,\ \ x_{2}(t)=t\\
+    &&y(t)=t^{2}
+\end{eqnarray*}
+Проекция $y$ на множество, заданное функциями $x_{1}$ и $x_{2}$. В
+пространстве $L_{2}[0,1]$ определено скалярное произведение
+\begin{eqnarray*}
+    (a,b)=\int\limits_{0}^{1}a(t)b(t)\d{t}
+\end{eqnarray*}
+Теперь можно найти те элементы, которые нас интересуют:
+\begin{eqnarray*}
+    &&(x_{1}x_{1})
+    =\int\limits_{0}^{1}1\cdot 1\d{t}=1\\
+    &&(x_{1}x_{2})
+    =\int\limits_{0}^{1}1\cdot t\d{t}
+    =\frac{t^{2}}{2}\bigg|^{1}_{0}=\frac{1}{2}\\
+    &&(x_{2}x_{2})
+    =\int\limits_{0}^{1}t\cdot t\d{t}
+    =\frac{t^{3}}{3}\bigg|^{1}_{0}=\frac{1}{3}\\
+    &&(yx_{1})
+    =\int\limits_{0}^{1}t^{2}\cdot 1\d{t}
+    =\frac{t^{3}}{3}\bigg|^{1}_{0}=\frac{1}{3}\\
+    &&(yx_{2})=\int\limits_{0}^{1}t^{2}\cdot t\d{t}
+    =\frac{t^{4}}{4}\bigg|^{1}_{0}=\frac{1}{4}
+\end{eqnarray*}
+Теперь можно составить систему
+\begin{eqnarray*}
+    &&\left\{\begin{aligned}
+    \frac{1}{3}-\alpha\cdot 1-\beta\cdot\frac{1}{2}=0\\
+    \frac{1}{4}-\alpha\cdot\frac{1}{2}-\beta\cdot\frac{1}{3}=0
+    \end{aligned} \right.\\
+    &&\beta = 1,\ \ \alpha=\frac{1}{6}\\
+    &&\hat{y}(t)=\alpha x_{1}(t)+\beta x_{2}(t)
+    =\frac{1}{6}+t\\
+    &&\Delta=y-\hat{y}=t^{2}-t-\frac{1}{6}\\
+    &&|\Delta|=\left(\left(\Delta\Delta\right)\right)^{\frac{1}{2}}\\
+    &&\left|\Delta\right|^{2}=\Delta^{2}
+    =\int\limits_{0}^{1}(t^{2}-t-\frac{1}{6})^{2}\d{t}
+    =\frac{7}{60} \Rightarrow |\Delta|=\sqrt{\frac{7}{60}}
+\end{eqnarray*}
+Расстояние от эл $y(t)=t^{2}$ до мн-ва, заданного ф-циями $x_{1}$ и
+$x_{2}(t)$: $\sqrt{\frac{7}{60}}$
+
+\paragraph{Пример 2. ($L_{2}[-1,1]$)}
+\begin{eqnarray*}
+    &&y(t)=t,\ \ x_{1}(t)=1,\ \ x_{2}(t)=t^{2}\\
+    &&\hat{y}-?,\ \ |\Delta| -?
+\end{eqnarray*}
+Составляем систему уравнения для нашего случая:
+\begin{eqnarray*}
+    &&\Delta=y-\alpha\cdot 1-\beta t^{2}\\
+    &&\left\{\begin{aligned}
+    (\Delta,1)=(y,1)-\alpha(1,1)-\beta(t^{2},1)=0\\
+    (\Delta,t^{2})=(y,t^{2})-\alpha(1,t^{2})-\beta(t^{2},t^{2})=0
+    \end{aligned} \right.
+\end{eqnarray*}
+Находим элементы, которые входят в эту систему:
+\begin{eqnarray*}
+&&y=t\\
+&&(y,1)=\int\limits_{-1}^{1}t\cdot 1\d{t}=0\\
+&&(y,t^{2})=\int\limits_{-1}^{1}t\cdot t^{2}\d{t}=0\\
+&&(1,1)=\int\limits_{-1}^{1}1\cdot 1\d{t}=2\\
+&&(t^{2},1)=\int\limits_{-1}^{1}t^{2}\cdot 1\d{t}
+=\frac{2}{3}\\
+&&(t^{2},t^{2})=\int\limits_{-1}^{1}t^{2}t^{2}\d{t}=\frac{2}{5}
+\end{eqnarray*}
+Получается система:
+\begin{eqnarray*}
+    \left\{\begin{aligned}
+    &2\alpha+\frac{2}{3}\beta=0\\
+    &\frac{2}{3}\alpha+\frac{2}{5}\beta=0
+    \end{aligned} \right.
+    \Rightarrow \left\{\begin{aligned}
+            &3\alpha+\beta=0 \\ &5\alpha + 3\beta=0
+    \end{aligned} \right.
+    \Rightarrow \left|\begin{array}{cc}
+            3 & 1\\5&3
+    \end{array} \right|=4\neq 0
+\end{eqnarray*}
+$\Rightarrow $ решение единственное: $\alpha=\beta=0$ $\Rightarrow $
+$\hat{y}=0$
+
+\paragraph{Пример 3. Найти расстояние до мн-ва ($L_{2}[0,1]$)}
+В пр-ве $L_{2}[0,1]$ найти расстояние от $y(t)=t^{2}$ до мн-ва:
+\begin{eqnarray*}
+    M=\left\{x:\int\limits_{0}^{1}x(t)\d{t}=0\right\}
+    \Rightarrow (x,1)=0
+\end{eqnarray*}
+Нарисовав рисунок, увидим что единица и $x$ образуют прямоугольник,
+диагональю которого будет являтся $y(t)=t^{2}$, отсюда:
+\begin{eqnarray*}
+&&\alpha\cdot 1=\Delta\\
+&&\left\{\begin{aligned}
+&a=t^{2}-\alpha\cdot 1\\
+&a\perp 1
+\end{aligned} \right.\\
+&&(a,1)=0=\int\limits_{0}^{1}(t^{2}-\alpha)1\d{t}=0\\
+&&\int\limits_{0}^{1}t^{2}\d{t}-\alpha\int\limits_{0}^{1}1\d{t}=0\\
+&&\frac{1}{3}-\alpha=0 \Rightarrow \alpha = \frac{1}{3}
+\end{eqnarray*}
+Теперь:
+\begin{eqnarray*}
+&&\Delta=\frac{1}{3}\cdot 1\\
+&&\Delta^{2}=\int\limits_{0}^{1}\left(\frac{1}{3}\cdot
+1\right)^{2}\d{t}=\frac{1}{9}\\
+&&|\Delta|=\frac{1}{3}
+\end{eqnarray*}
+
+\paragraph{Пример 4. дз}
+\begin{eqnarray*}
+    L_{2}[0,\frac{\pi}{2}]
+\end{eqnarray*}
+\begin{enumerate}
+\item
+    Рассмотреть расстояние от $y(t)=\sin{t}$ до мн-ва, зад. ф-циями
+    $x_{1}(t)=1$ и $x_{2}(t)=t$
+\item
+    от $y(t)=\cos{t}$ до $x_{1}(t)=1$ и $x_{2}(t)=t^{2}$
+\item
+    $L_{2}[0,1]$ в пр-ве есть система функций: $x_{1}(t)=1$,
+    $x_{2}(t)=t$, $x(t)=t^{2}$ построить ортонормированную систему
+\end{enumerate}
+
+
+
+\section{Вычисление сильных и слабых пределов в нормированных
+пространствах.}
+\section{Вычисление равномерного, сильного и слабого предела
+последовательностей операторов.}
+\section{Построение сопряженного оператора.}
+\section{Вычисление нормы и спектра линейного оператора.}
+
+\section{Теория}
+
+\paragraph{Сумма бесконечно убывающей геометрической прогрессии}
+\paragraph{Сжимающее отображение}
+Если отображение является сжимающим, то пределом последовательности служит
+неподвижная точка и она не зависит от выбора начального приближения
+\paragraph{Фундаментальная последовательность.}
+$\left\{x_{n}\right\}$ является фундаментальной последовательностью, если
+\begin{eqnarray*}
+    \forall\varepsilon>0,\ \exists N=N(\varepsilon):\forall n,m\geqslant N
+    \ \left|x_{n}-x_{m}\right|<\varepsilon
+\end{eqnarray*}
+
+\paragraph{Полное метрическое пространство.}\index{Полное метрическое пространство}
+Каждая фундаментальная последовательность сходится к элементу этого же пространства.
+
+\paragraph{Неравенство Коши-Буняковского.}\index{Неравенство
+Коши-Буняковского}
+\begin{eqnarray*}
+    \sum\limits_{i=1}^{n}|a_{i}b_{i}|
+    \leqslant \left(\sum\limits_{i=1}^{n}|a_{i}|^{2}\right)^{\frac{1}{2}}
+    \left(\sum\limits_{i=1}^{n}|b_{i}|^{2}\right)^{\frac{1}{2}}
+\end{eqnarray*}
+
+\paragraph{Неравенство Гёльдера.}\index{Неравенство Гёльдера}
+\begin{eqnarray*}
+    \sum\limits_{i=1}^{n}|a_{i}b_{i}|
+    \leqslant
+    \left(\sum\limits_{i=1}^{n}|a_{i}|^{p}\right)^{\frac{1}{p}}
+    \left(\sum\limits_{i=1}^{n}|b_{i}|^{q}\right)^{\frac{1}{q}},\ \
+    \frac{1}{p}+\frac{1}{q}=1
+\end{eqnarray*}
+
+\paragraph{Равенство Гёльдера.}\index{Равенство Гёльдера}
+Обращается в равенство при $b_{i}=\sign{a_{i}}\cdot |a_{i}|^{p-1}$
+
+\paragraph{Сумма бесконечно убывающей геометрической прогрессии.}
+\index{Сумма бесконечно убывающей геометрической прогрессии}
+\begin{eqnarray*}
+    S=\frac{a_{0}}{1-q}
+\end{eqnarray*}
+
+
+\subsection{Свойства модулей}
+\begin{itemize}
+    \item $|a+b|\leqslant |a|+|b|$
+    \item $|a-b|\leqslant |a|+|b|$
+    \item $\left|\int\limits
+        f(x)\d{x}\right|\leqslant\int\limits|f(x)|\d{x}$
+\end{itemize}
+
+\subsection{Метрические пространства}
+% в чем разница между нормой/мерой/метрикой
+\begin{tabular}{l|c|c}
+    Метрическое пр-во & Норма $\Vert x \Vert$ & $(a\cdot b)$ \\\hline
+    $l_{\infty}$ & $\sup_{k\in\N}|x_{k}|$ \\\hline
+    $l_{n}$ &
+    $\left(\sum\limits_{i=1}^{\infty}x_{i}^{n}\right)^{\frac{1}{n}}$ \\\hline
+    $L_{n}[a,b]$ &
+    $\left(\int\limits_{a}^{b}|f(x)|^{p}\d{x}\right)^{\frac{1}{p}}$ &
+    $\int\limits_{a}^{b}a(t)b(t)\d{t}$\\\hline
+    $C[0,1]$ & $\max_{0\leqslant t\leqslant 1}|x(t)|$ \\\hline
+    $\R^{n}$ & $\left(\sum\limits_{i=1}^{n}x_{i}^{2}\right)^{\frac{1}{2}}$
+\end{tabular}
+
+\subsection{Формула Рисса}
+\subsubsection{$l_{p}$}
+Теорема
+\begin{eqnarray*}
+    &&\forall f\in l^{*}_{p},\ p\in(1,\infty)\\
+    &&\exists \widetilde{f}\in l_{q}\ \left(\frac{1}{p}+\frac{1}{q}=1\right)\\
+    &&f(x)=\sum\limits_{k=1}^{\infty}\widetilde{f}_{k}x_{k}\\
+    &&\Vert f \Vert =\Vert \widetilde{f} \Vert
+\end{eqnarray*}
+
+Пример
+\begin{eqnarray*}
+    &&f:l_{3}\to\R,\ \ f(x)=x_{1}+x_{2}\\
+    &&\widetilde{f}=(1,1,0,0,\ldots)\\
+    &&p=3,\ \ \ \frac{1}{q}+\frac{1}{3}=1\Rightarrow q=\frac{3}{2}\\
+    &&\Vert f \Vert =\left(1^{\frac{3}{2}+1^{\frac{3}{2}}}\right)^{\frac{2}{3}}
+    =\sqrt[3]{4}
+\end{eqnarray*}
+
+Другой пример
+\begin{eqnarray*}
+    &&f:l_{1}\to\R
+    ,\ \ \ f(x)=\sum\limits_{k=1}^{\infty}\frac{2-k}{3+k}x_{k}\\
+    &&\widetilde{f}=\left(\frac{2-1}{3+1},\frac{2-2}{3+2},\ldots\right)\\
+    &&\Vert f \Vert =\sup_{k}\left|\frac{2-k}{3+k}\right|
+    =\sup_{k}\left|\frac{5-(3+k)}{3+k}\right|
+    =\sup_{k}\left|\frac{5}{3+k}-1\right|=1
+\end{eqnarray*}
+
+\subsubsection{$L_{p}$}
+Теорема
+\begin{eqnarray*}
+    &&\forall f \in L_{p}^{*}([a,b]),\ \ p\in(1,\infty)\\
+    &&\exists \widetilde{f}\in L_{q}([a,b]),\ \ \frac{1}{p}+\frac{1}{q}=1\\
+    &&f(x)=\int\limits_{[a,b]}\widetilde{f}x\d\mu
+    \ \ \ \Vert f \Vert =\Vert \widetilde{f} \Vert
+\end{eqnarray*}
+Пример
+\begin{eqnarray*}
+    &&f(x)=\int\limits_{[0,1]}x(\sqrt{t})\d{t},\ \ x\in L_{2}[0,1]\\
+    &&\sqrt{t}=u,\ t=u^{2},\ \d{t}=2u\d{u}\\
+    &&f(x)=\int\limits_{[0,1]}2ux(u)\d{u},\ \ \widetilde{f}(u)=2u\\
+    &&p=2 \Rightarrow q=2\\
+    &&\Vert f \Vert =\Vert \widetilde{f} \Vert
+    =\sqrt{\int\limits_{[0,1]}(2u)^{2}\d{u}}=\frac{2}{3}
+\end{eqnarray*}
+Теорема для $L_{1}$
+Пример
+\begin{eqnarray*}
+    &&f(x)=\int\limits_{[0,1]}x(\sqrt{t})\d{t}
+    -\int\limits_{[0,1]}x(\sqrt[3]{t})\d{t},
+    \ \ \ x\in L_{1}([0,1])\\
+    &&\sqrt{t}=u\ \ t=u^{2}\ \ \d{t}=2u\d{u}\\
+    &&\sqrt[3]{t}=s\ \ t=s^{3}\ \ \d{t}=3s^{2}\d{s}\\
+    &&f(x)=\int\limits_{[0,1]}(2u-3u^{2})x(u)\d{u}\\
+    &&\Vert f \Vert
+    =\textmd{ф-ция непрерывна, поэтому существенный супремум совпадает с
+    обычным } \textmd{ess}\sup_{u\in[0,1]}|2u-3u^{2}|=\\
+    &&=\sup_{u\in[0,1]}\left|2u-3u^{2}\right|=1
+\end{eqnarray*}
+Другой пример
+\begin{eqnarray*}
+    &&f(x)=\int\limits_{[-1,0]}x(t)\d{t}
+    -\int\limits_{[0,1]}x(t)\d{t},
+    \ \ x\in L_{4}[-1,1],\ \Vert f \Vert -?\\
+    &&f(x)=\int\limits_{[-1,1]}-\sign(t)x(t)\d{t},\ \ \sign(t)=
+    \left\{\begin{aligned}-1,t<0\\1,t>0 \end{aligned} \right.\\
+    &&\Vert f \Vert
+    =\left(\int\limits_{[-1,1]}|-\sign(t)|^{q}\d{t}\right)^{\frac{1}{q}}
+    =2^{\frac{1}{q}}=2^{1-\frac{1}{p}}=2^{\frac{3}{4}}
+\end{eqnarray*}
+
+
+
+
+
+
+\section{Разное}
+\paragraph{1.}
+Является ли полным метрическим пространством пара:
+\begin{eqnarray*}
+    \Bigg(\ \R,\ \rho(x,y)=|x-y|\ \Bigg)\ ?
+\end{eqnarray*}
+\par Доказываем что МП является полным. Каждому элементу из $\R$ ставим в соответствие последовательность
+$x+\frac{1}{n}=x_{n}\to x$ (всегда сходится к элементу метрического пространства)
+\par Можно ли указать мн-во $X$ такое, что МП $(X,\rho(x,y)=|x-y|)$ не является
+полным. Возьмем подмножество действительных чисел $X=(0;+\infty)$, тогда фундаментальная
+последовательность $x_{n}=\frac{1}{n}\to 0\notin X$
+\par Можно ли указать метрику $\rho(x,y)$ такую, что МП $(\R,\rho)$ не является полным.
+\begin{eqnarray*}
+    \rho(x,y)=|e^{-x}-e^{-y}|
+\end{eqnarray*}
+Доказываем что фундаментальная последовательность есть:
+\begin{eqnarray*}
+    &&\rho(n,m)=|e^{-n}-e^{-m}|\leqslant \frac{2}{e^{k}}< \varepsilon,\ (k=\min(n,m))\\
+    &&k\geqslant \ln{\frac{2}{\varepsilon}}=N(\varepsilon)\\
+    &&\lim\limits_{n\rightarrow \infty}x_{n}=\infty
+\end{eqnarray*}
+$\Rightarrow $ МП: $(\R,\rho)$ не полное
+
+\paragraph{2. Проверка линейности функционала (непрерывные функции)}
+\begin{eqnarray*}
+    &&f:C[0,1]\to \R\\
+    &&f(x)=\int\limits_{0}^{1}x^{2}(t)\d{t}
+\end{eqnarray*}
+Не линеен, т.к. после подстановки получаем:
+\begin{eqnarray*}
+    \int\limits_{0}^{1}(\alpha^{2}x^{2}(t)+\beta^{2}y^{2}(t)+2\alpha\beta
+    x(t)y(t))\d{t}
+    \neq \alpha f(x)+\beta f(y)
+    =\alpha\int\limits_{0}^{1}x^{2}(t)\d{t}
+    +\alpha\int\limits_{0}^{1}y^{2}(t)\d{t}
+\end{eqnarray*}
+
+\paragraph{3. Проверка линейности функционала (интегрируемые функции)}
+\begin{eqnarray*}
+    &&f:L_{2}[0,1]\to\R\\
+    &&f(x)=\int\limits_{0}^{1}x(t)\sin^{2}t\d{t}
+\end{eqnarray*}
+Является линейным (после раскрытия скобок обе части равны)
+
+\paragraph{4. Проверка линейности функционала (последовательности)}
+\begin{eqnarray*}
+    &&f:l_{2}[0,1]\to\R\\
+    &&f(x)=\sum\limits_{k=1}^{\infty}x_{k}\sin{k}
+\end{eqnarray*}
+Является линейным (после раскрытия скобок обе части равны)
+
+
+
+\end{document}
