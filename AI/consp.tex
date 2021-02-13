@@ -1,9 +1,9 @@
 % открыть любую книгу по математике и улучшить шрифт в моем конспекте
-\documentclass[14pt]{extarticle}
+\documentclass[12pt]{extarticle}
 
 \usepackage{tikz}
-\usepackage{graphicx}
-\graphicspath{ {./pic/} }
+% \usepackage{graphicx}
+% \graphicspath{ {./pic/} }
 
 \input{preambule/main.tex}
 
@@ -18,6 +18,16 @@
 %   BoldItalicFont=*-Regular,
 %   BoldItalicFeatures={FakeBold=3,FakeSlant=0.3},
 % ]
+
+\usepackage{fontspec}
+\setmainfont[
+    Path = /usr/share/fonts/noto/,
+    Extension = .ttf,
+    Ligatures = TeX,
+    BoldFont = NotoSans-Bold,
+    ItalicFont = NotoSans-Italic
+]{NotoSans-Regular}
+
 \begin{document}
 
 \tableofcontents\newpage
